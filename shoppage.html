@@ -1,0 +1,616 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<head>
+<link href="images/logoicon.ico" rel="shortcut icon"/>  
+<title>台南下營鋐茶鵝</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<!-- 有綁定其他樣式，因此先取消使用原先樣式表 -->
+<!-- <link rel="stylesheet" href="css/shoppage.css" /> -->
+<!-- 新商品頁樣式表，有要新增的寫在這 -->
+<link rel="stylesheet" href="css/shoppage-new.css">
+<link rel="stylesheet" href="css/main.css" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Yusei+Magic&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<script src="../"></script>
+<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+
+</head>
+<body class="is-preload">
+<!-- Wrapper -->
+<div id="wrapper">
+	
+	<!--navbar區塊-->
+	<nav>
+		<div class="navbar navbar-expand-lg p-3" style="background-color: #fede00">
+			<div class="container">
+				<a href="index_nologin.html"><img style="width: 280px;" src="images/logo.png"></a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+	
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav ms-auto">
+						<li class="nav-item"><a href="about_nologin.html" class="text-black">關於我們</a></li>
+						<!-- <li><a href="#">商品總覽</a></li> -->
+						<li class="nav-item"><a href="#" data-bs-toggle="modal" data-bs-target="#login-modal" class="text-black">線上訂購</a></li>
+						<li class="nav-item"><a href="common-quest_nologin.html" class="text-black">常見問題</a></li>
+						<li class="nav-item"><a href="contact_nologin.html" class="text-black">聯絡我們</a></li>
+						<li class="nav-item"><a href="#" data-bs-toggle="modal" data-bs-target="#login-modal" class="text-black">會員登入</a></li>
+						<ul class="navbar-nav ml-auto">
+							<li class="nav-item">
+							  <a href="#" id="cartButton" class="d-flex align-items-center text-black">
+								<img src="images/shopping-cart.png" width="20" height="20" class="me-2">購物車
+								<span id="cartCount" class="cart-count"></span>
+							  </a>
+							</li>
+						  </ul>
+						  </div>
+						  </div>
+						  </div>
+						  </nav>
+						  
+                          
+						  <!-- 購物車彈出視窗 -->
+						  <div id="cartModal" class="modal" tabindex="-1">
+							<div class="modal-dialog">
+							  <div class="modal-content">
+								<div class="modal-header">
+								  <h5 class="modal-title">購物車</h5>
+								  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="closeCartModal()"></button>
+								</div>
+								<div class="modal-body">
+								  <p>
+									<div id="cart">
+									<div id="cart-items"></div>
+								    </div>
+								  </p>
+								</div>
+								<div class="modal-footer">
+									<button class="btn btn-outline-warning" onclick="location.href='Shopping Cart.html'">前往結帳</button>
+								</div>
+							  </div>
+							</div>
+						  </div>
+
+						  <!-- <div id="cartModal" class="modal" style="display: none;">
+							<div class="modal-content">
+							  <span class="close" onclick="closeCartModal()">&times;</span>
+							  <h2>購物車</h2>
+							  <div id="cart">
+								<div id="cart-items"></div>
+							  </div>
+							  <button class="btn btn-outline-warning" onclick="goToCheckout()" href="Shopping Cart.html">前往結帳</button>
+							</div>
+						  </div> -->
+						  <script>
+							//預設關閉購物車
+							window.addEventListener("load", function() {
+								document.getElementById("cartModal").style.display = "none";
+							});
+
+							var cartCount = 0; // Initialize the cart count to 0
+
+							function openCartModal() {
+								// Display the shopping cart modal
+								document.getElementById("cartModal").style.display = "block";
+							  
+								// Display the added items and their quantities
+								var cartItems = document.getElementById("cartItems");
+								cartItems.innerHTML = ""; // Clear previous contents
+							  
+								// Add information for each item
+								for (var i = 1; i <= cartCount; i++) {
+								  var item = document.createElement("div");
+								  var itemName = getCartItemName(i);
+								  var itemQuantity = getCartItemQuantity(i);
+								  var itemPrice = getItemPrice(itemName); // Assuming a function getItemPrice exists to get the price of an item
+								  var totalPrice = itemPrice * itemQuantity; // Calculate the total price
+							  
+								  item.innerText = "商品 " + i + ": " + itemName + " - " + totalPrice + "個 - 總價: $" + totalPrice;
+								  cartItems.appendChild(item);
+								}
+							  }
+							
+							// Add close button functionality to hide the shopping cart modal
+							function closeCartModal() {
+							  document.getElementById("cartModal").style.display = "none";
+							}
+							
+							function goToCheckout() {
+							  // TODO: Logic for navigating to the checkout page
+							}
+							
+							// Add a click event listener to the cart button
+							document.getElementById("cartButton").addEventListener("click", openCartModal);
+							
+
+						</script>
+
+
+<!-- 每頁開頭頁籤區塊 -->
+<div id="logo" class="container ">
+    <i class="fa-solid fa-house ms-2" style="color: #8f8f8f; "></i>&nbsp;<a href="index_nologin.html">首頁</a> — <a href="shoppage.html">線上訂購</a>
+  </div>
+  
+  <!-- 商品頁 -->
+  <div class="container justify-content-between">
+    <div class="row">
+      <!-- 左側固定欄位 -->
+      <div class="col-md-2 mt-5">
+        <div class="list-group" >
+          <a href="index_nologin.html" class="list-group-item list-group-item-action border-0 border-bottom">首頁</a>
+          <a href="about_nologin.html" class="list-group-item list-group-item-action border-0 border-bottom">關於我們</a>
+          <a href="common-quest_nologin.html" class="list-group-item list-group-item-action border-0 border-bottom">常見問題</a>
+          <a href="contact_nologin.html" class="list-group-item list-group-item-action border-0 border-bottom">聯絡我們</a>
+        </div>
+      </div>
+      <!-- 右側商品列表 -->
+      <div class="container col-md-10 mt-5 mb-5">
+        <!-- 商品標題 -->
+        <div class="section-heading">所有商品</div>
+		<!-- 商品項目 -->
+        <div class="row justify-content-evenly">
+
+            <!-- 每項商品 -->
+            <!-- quantity-input1 -->
+            <div class="card col-12 col-md-6 col-lg-4 col-xl-3 p-2 m-3   " >
+                <a href="#" class="card-header">
+                <img src="images/pic01 (2).jpg" class="card-img-top" alt="Product 1">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title d-flex justify-content-between align-items-baseline " style="font-weight: bolder;">
+                    燻茶鵝 &#188; 隻
+                    <span class="text-end fs-6 text-center" style="color: #f26649; font-weight: bold; ">NT$ 380</span>
+                    </h5>
+                    <div class="container border rounded d-flex justify-content-evenly align-content-center" >
+                        <button class="btn" id="decrease-button1" type="button" onclick="decreaseQuantity('quantity-input1');"><i class="fa-solid fa-minus" style="color: #FEC107;"></i></button>
+                        <input class="form-control product-value text-center" readonly id="quantity-input1" type="number" value="1" style="border:transparent; font-weight: bolder;">
+                        <button class="btn" id="increase-button1" type="button" onclick="increaseQuantity('quantity-input1');"><i class="fa-solid fa-plus" style="color: #FEC107;"></i></button>
+                    </div>
+                    <div class="container d-flex justify-content-center mt-3">
+                        <button class="btn btn-warning " type="button" style="width: 80%; font-weight: bolder; font-size: 15px;" onclick="addToCart('燻茶鵝1/4隻', 'quantity-input1', 1, 380)">
+                        <i class="fa-solid fa-cart-shopping mt-2 me-2" style="color: #ffffff; "></i>加入購物車</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- quantity-input2 -->
+            <div class="card col-12 col-md-6 col-lg-4 col-xl-3 p-2 m-3   " >
+                <a href="#" class="card-header">
+                <img src="images/pic01 (2).jpg" class="card-img-top" alt="Product 1">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title d-flex justify-content-between align-items-baseline " style="font-weight: bolder;">
+                    燻茶鵝 &#189; 隻
+                    <span class="text-end fs-6 text-center" style="color: #f26649; font-weight: bold; ">NT$ 660</span>
+                    </h5>
+                    <div class="container border rounded d-flex justify-content-evenly align-content-center" >
+                        <button class="btn" id="decrease-button1" type="button" onclick="decreaseQuantity('quantity-input2');"><i class="fa-solid fa-minus" style="color: #FEC107;"></i></button>
+                        <input class="form-control product-value text-center mx-3" readonly id="quantity-input2" type="number" value="1" style="border:transparent; font-weight: bolder;">
+                        <button class="btn" id="increase-button1" type="button" onclick="increaseQuantity('quantity-input2');"><i class="fa-solid fa-plus" style="color: #FEC107;"></i></button>
+                    </div>
+                    <div class="container d-flex justify-content-center mt-3">
+                        <button class="btn btn-warning" type="button" style="width: 80%; font-weight: bolder; font-size: 15px;" onclick="addToCart('燻茶鵝1/2隻', 'quantity-input2', 1, 660)">
+                        <i class="fa-solid fa-cart-shopping mt-2 me-2" style="color: #ffffff; "></i>加入購物車</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- quantity-input3 -->
+            <div class="card col-12 col-md-6 col-lg-4 col-xl-3 p-2 m-3   " >
+                <a href="#" class="card-header">
+                <img src="images/pic01 (2).jpg" class="card-img-top" alt="Product 1">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title d-flex justify-content-between align-items-baseline " style="font-weight: bolder;">
+                    醉鵝 &#188; 隻
+                    <span class="text-end fs-6 text-center" style="color: #f26649; font-weight: bold; ">NT$ 460</span>
+                    </h5>
+                    <div class="container border rounded d-flex justify-content-evenly align-content-center" >
+                        <button class="btn" id="decrease-button1" type="button" onclick="decreaseQuantity('quantity-input3');"><i class="fa-solid fa-minus" style="color: #FEC107;"></i></button>
+                        <input class="form-control product-value text-center mx-3" readonly id="quantity-input3" type="number" value="1" style="border:transparent; font-weight: bolder;">
+                        <button class="btn" id="increase-button1" type="button" onclick="increaseQuantity('quantity-input3');"><i class="fa-solid fa-plus" style="color: #FEC107;"></i></button>
+                    </div>
+                    <div class="container d-flex justify-content-center mt-3">
+                        <button class="btn btn-warning" type="button" style="width: 80%; font-weight: bolder; font-size: 15px;" onclick="addToCart('醉鵝1/4隻', 'quantity-input3', 1, 460)">
+                        <i class="fa-solid fa-cart-shopping mt-2 me-2" style="color: #ffffff; "></i>加入購物車</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- quantity-input4 -->
+            <div class="card col-12 col-md-6 col-lg-4 col-xl-3 p-2 m-3   " >
+                <a href="#" class="card-header">
+                <img src="images/pic01 (2).jpg" class="card-img-top" alt="Product 1">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title d-flex justify-content-between align-items-baseline " style="font-weight: bolder;">
+                    醉鵝 &#189; 隻
+                    <span class="text-end fs-6 text-center" style="color: #f26649; font-weight: bold; ">NT$ 760</span>
+                    </h5>
+                    <div class="container border rounded d-flex justify-content-evenly align-content-center" >
+                        <button class="btn" id="decrease-button1" type="button" onclick="decreaseQuantity('quantity-input4');"><i class="fa-solid fa-minus" style="color: #FEC107;"></i></button>
+                        <input class="form-control product-value text-center mx-3" readonly id="quantity-input4" type="number" value="1" style="border:transparent; font-weight: bolder;">
+                        <button class="btn" id="increase-button1" type="button" onclick="increaseQuantity('quantity-input4');"><i class="fa-solid fa-plus" style="color: #FEC107;"></i></button>
+                    </div>
+                    <div class="container d-flex justify-content-center mt-3">
+                        <button class="btn btn-warning" type="button" style="width: 80%; font-weight: bolder; font-size: 15px;" onclick="addToCart('醉鵝1/2隻', 'quantity-input4', 1, 760)">
+                        <i class="fa-solid fa-cart-shopping mt-2 me-2" style="color: #ffffff; "></i>加入購物車</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- quantity-input5 -->
+            <div class="card col-12 col-md-6 col-lg-4 col-xl-3 p-2 m-3   " >
+                <a href="#" class="card-header">
+                <img src="images/pic01 (2).jpg" class="card-img-top" alt="Product 1">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title d-flex justify-content-between align-items-baseline " style="font-weight: bolder;">
+                    鵝頭/個
+                    <span class="text-end fs-6 text-center" style="color: #f26649; font-weight: bold; ">NT$ 75</span>
+                    </h5>
+                    <div class="container border rounded d-flex justify-content-evenly align-content-center" >
+                        <button class="btn" id="decrease-button1" type="button" onclick="decreaseQuantity('quantity-input5');"><i class="fa-solid fa-minus" style="color: #FEC107;"></i></button>
+                        <input class="form-control product-value text-center mx-3" readonly id="quantity-input5" type="number" value="1" style="border:transparent; font-weight: bolder;">
+                        <button class="btn" id="increase-button1" type="button" onclick="increaseQuantity('quantity-input5');"><i class="fa-solid fa-plus" style="color: #FEC107;"></i></button>
+                    </div>
+                    <div class="container d-flex justify-content-center mt-3">
+                        <button class="btn btn-warning" type="button" style="width: 80%; font-weight: bolder; font-size: 15px;" onclick="addToCart('鵝頭', 'quantity-input5', 1, 75)">
+                        <i class="fa-solid fa-cart-shopping mt-2 me-2" style="color: #ffffff; "></i>加入購物車</button>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- quantity-input6 -->
+            <div class="card col-12 col-md-6 col-lg-4 col-xl-3 p-2 m-3   " >
+                <a href="#" class="card-header">
+                <img src="images/pic01 (2).jpg" class="card-img-top" alt="Product 1">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title d-flex justify-content-between align-items-baseline " style="font-weight: bolder;">
+                    鵝腳/個
+                    <span class="text-end fs-6 text-center" style="color: #f26649; font-weight: bold; ">NT$ 35</span>
+                    </h5>
+                    <div class="container border rounded d-flex justify-content-evenly align-content-center" >
+                        <button class="btn" id="decrease-button1" type="button" onclick="decreaseQuantity('quantity-input6');"><i class="fa-solid fa-minus" style="color: #FEC107;"></i></button>
+                        <input class="form-control product-value text-center mx-3" readonly id="quantity-input6" type="number" value="1" style="border:transparent; font-weight: bolder;">
+                        <button class="btn" id="increase-button1" type="button" onclick="increaseQuantity('quantity-input6');"><i class="fa-solid fa-plus" style="color: #FEC107;"></i></button>
+                    </div>
+                    <div class="container d-flex justify-content-center mt-3">
+                        <button class="btn btn-warning" type="button" style="width: 80%; font-weight: bolder; font-size: 15px;" onclick="addToCart('鵝腳', 'quantity-input6', 1, 35)">
+                        <i class="fa-solid fa-cart-shopping mt-2 me-2" style="color: #ffffff; "></i>加入購物車</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- quantity-input7 -->
+            <div class="card col-12 col-md-6 col-lg-4 col-xl-3 p-2 m-3   " >
+                <a href="#" class="card-header">
+                <img src="images/pic01 (2).jpg" class="card-img-top" alt="Product 1">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title d-flex justify-content-between align-items-baseline " style="font-weight: bolder;">
+                    鵝翅/支
+                    <span class="text-end fs-6 text-center" style="color: #f26649; font-weight: bold; ">NT$ 40</span>
+                    </h5>
+                    <div class="container border rounded d-flex justify-content-evenly align-content-center" >
+                        <button class="btn" id="decrease-button1" type="button" onclick="decreaseQuantity('quantity-input7');"><i class="fa-solid fa-minus" style="color: #FEC107;"></i></button>
+                        <input class="form-control product-value text-center mx-3" readonly id="quantity-input7" type="number" value="1" style="border:transparent; font-weight: bolder;">
+                        <button class="btn" id="increase-button1" type="button" onclick="increaseQuantity('quantity-input7');"><i class="fa-solid fa-plus" style="color: #FEC107;"></i></button>
+                    </div>
+                    <div class="container d-flex justify-content-center mt-3">
+                        <button class="btn btn-warning" type="button" style="width: 80%; font-weight: bolder; font-size: 15px;" onclick="addToCart('鵝翅', 'quantity-input7', 1, 40)">
+                        <i class="fa-solid fa-cart-shopping mt-2 me-2" style="color: #ffffff; "></i>加入購物車</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- quantity-input8 -->
+            <div class="card col-12 col-md-6 col-lg-4 col-xl-3 p-2 m-3   " >
+                <a href="#" class="card-header">
+                <img src="images/pic01 (2).jpg" class="card-img-top" alt="Product 1">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title d-flex justify-content-between align-items-baseline " style="font-weight: bolder;">
+                    鵝胗
+                    <span class="text-end fs-6 text-center" style="color: #f26649; font-weight: bold; ">NT$ 100</span>
+                    </h5>
+                    <div class="container border rounded d-flex justify-content-evenly align-content-center" >
+                        <button class="btn" id="decrease-button1" type="button" onclick="decreaseQuantity('quantity-input8');"><i class="fa-solid fa-minus" style="color: #FEC107;"></i></button>
+                        <input class="form-control product-value text-center mx-3" readonly id="quantity-input8" type="number" value="1" style="border:transparent; font-weight: bolder;">
+                        <button class="btn" id="increase-button1" type="button" onclick="increaseQuantity('quantity-input8');"><i class="fa-solid fa-plus" style="color: #FEC107;"></i></button>
+                    </div>
+                    <div class="container d-flex justify-content-center mt-3">
+                        <button class="btn btn-warning" type="button" style="width: 80%; font-weight: bolder; font-size: 15px;" onclick="addToCart('鵝胗', 'quantity-input8', 1, 100)">
+                        <i class="fa-solid fa-cart-shopping mt-2 me-2" style="color: #ffffff; "></i>加入購物車</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- quantity-input9 -->
+            <div class="card col-12 col-md-6 col-lg-4 col-xl-3 p-2 m-3   " >
+                <a href="#" class="card-header">
+                <img src="images/pic01 (2).jpg" class="card-img-top" alt="Product 1">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title d-flex justify-content-between align-items-baseline " style="font-weight: bolder;">
+                    雞腳/3支
+                    <span class="text-end fs-6 text-center" style="color: #f26649; font-weight: bold; ">NT$ 35</span>
+                    </h5>
+                    <div class="container border rounded d-flex justify-content-evenly align-content-center" >
+                        <button class="btn" id="decrease-button1" type="button" onclick="decreaseQuantity('quantity-input9');"><i class="fa-solid fa-minus" style="color: #FEC107;"></i></button>
+                        <input class="form-control product-value text-center mx-3" readonly id="quantity-input9" type="number" value="1" style="border:transparent; font-weight: bolder;">
+                        <button class="btn" id="increase-button1" type="button" onclick="increaseQuantity('quantity-input9');"><i class="fa-solid fa-plus" style="color: #FEC107;"></i></button>
+                    </div>
+                    <div class="container d-flex justify-content-center mt-3">
+                        <button class="btn btn-warning" type="button" style="width: 80%; font-weight: bolder; font-size: 15px;" onclick="addToCart('雞腳', 'quantity-input9', 1, 35)">
+                        <i class="fa-solid fa-cart-shopping mt-2 me-2" style="color: #ffffff; "></i>加入購物車</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 其他品項待新增 -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+									
+
+						<script>
+							function updateCartItemHTML(cartData, cartItemId, price) {
+							var cartItemContainer = document.createElement("div");
+							var productNameElement = document.createElement("span");
+							productNameElement.innerText = cartData.productName;
+							var quantityElement = document.createElement("span");
+							quantityElement.innerText = ` - ${cartData.quantity}個`;
+							var totalPrice = price * cartData.quantity;
+							var priceElement = document.createElement("span");
+							priceElement.innerText = ` - 價格: $${totalPrice}`;
+							
+							cartItemContainer.appendChild(productNameElement);
+							cartItemContainer.appendChild(quantityElement);
+							cartItemContainer.appendChild(priceElement);
+							
+							document.getElementById("cart-items").appendChild(cartItemContainer);
+							}
+
+							function handleImageClick(event) {
+							event.preventDefault();
+							// Logic for handling image click event
+							}
+
+							function handleLinkClick(event) {
+							event.preventDefault();
+							// Logic for handling link click event
+							}
+
+							var cartCount = 0;
+
+							function increaseQuantity(inputId) {
+							var quantityInput = document.getElementById(inputId);
+							quantityInput.value = parseInt(quantityInput.value) + 1;
+							}
+
+							function decreaseQuantity(inputId) {
+							var quantityInput = document.getElementById(inputId);
+							var newQuantity = parseInt(quantityInput.value) - 1;
+							quantityInput.value = newQuantity < 1 ? 1 : newQuantity;
+							}
+
+                            function addToCart(productName, inputId, cartIndex, price) {
+                                var quantityInput = document.getElementById(inputId);
+                                var quantity = parseInt(quantityInput.value);
+                                var cartData = {
+                                    productName: productName,
+                                    quantity: quantity,
+                                    cartIndex: cartIndex
+                                };
+
+                                // Update modal content with the success message
+                                var successModalBody = document.getElementById("successModalBody");
+                                successModalBody.innerHTML = `已將${productName} ${quantity}個成功加入購物車！`;
+                                $('#successModal').modal('show');
+                                setTimeout(function() {
+                                    $('#successModal').modal('hide');
+                                }, 3000); // 3000 milliseconds (3 seconds)
+
+                                cartCount += quantity;
+                                document.getElementById('cartCount').innerText = cartCount;
+
+                                var cartItemId = 'new_cart_item_id';
+                                updateCartItemHTML(cartData, cartItemId, price);
+                                quantityInput.value = 1;
+
+                                // // Start countdown timer
+                                // var countdownSeconds = 3;
+                                // var countdownTimerElement = document.getElementById("countdownSeconds");
+                                // var countdownInterval = setInterval(function() {
+                                //     countdownSeconds--;
+                                //     countdownTimerElement.innerText = countdownSeconds;
+                                //     if (countdownSeconds <= 0) {
+                                //         clearInterval(countdownInterval);
+                                //         $('#successModal').modal('hide');
+                                //     }
+                                // }, 1000); // 1000 milliseconds (1 second)
+                                setTimeout(function() {
+                                $('#successModal').modal('hide');
+                                }, 3000); // 3000 毫秒 (3 秒)
+                            }
+                           
+						  </script>
+						  
+
+
+						 
+                        <!-- 成功畫面 -->
+
+                        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                            <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                            </symbol>
+                        </svg>
+
+
+                        <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="alert alert-warning d-flex align-items-center mb-2" role="alert">
+                                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+                                        <use xlink:href="#check-circle-fill" />
+                                    </svg>
+                                    <div>
+                                        <p class="mb-0" id="successModalBody"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+						
+<!--登入彈窗區塊，有與JS配合-->
+<div id="login-modal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Close button -->'
+            <div class="modal-header">
+                <h5 class="modal-title">會員登入</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+    
+            <!-- Login form -->
+            <form class="form1" action="show_form.php" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="account">帳號:</label>
+                        <input type="text" id="account" name="account" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">密碼:</label>
+                        <input type="password" id="password" name="password" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-outline-warning">會員登入</button>
+                    <button type="submit" class="btn btn-warning" formaction="member.php">註冊會員</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--側邊攔-->
+<div class="sidebar">
+    <a href="https://www.facebook.com/profile.php?id=100091698824828&mibextid=ZbWKwL"target="_blank"><img src="images/facebook.png" style="width: 35px;height:35px;" ></a>
+    <a href="https://www.instagram.com/"><img src="images/Instagram.png" style="width: 35px;height:35px;"></a>
+    <a href="https://line.me/zh-hant/"><img src="images/line.png" style="width: 35px;height:35px;"></a>
+    <a href="#" class="back-to-top"><img src="images/up-arrows.png" style="width: 35px;height:35px;"></a>
+</div>
+
+    <!--底部欄 -->
+    <footer class="p-4 border-top">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">
+					<h3>台南下營 鋐茶鵝</h3>
+				</div>
+				<div class="col-md-3">
+				<h5>關於我們</h5>
+					<ul class="list-unstyled">
+						<li><a href="about_nologin.html" class="text-decoration">關於鋐茶鵝</a></li>
+						<li><a href="index_nologin.html" class="text-decoration">營業資訊</a></li>
+					</ul>
+				</div>
+				<div class="col-md-3">
+					<h5>購物須知</h5>
+					<ul class="list-unstyled">
+						<!--<li><a href="#" class="text-decoration-none text-warning">付款方式</a></li>
+						<li><a href="#" class="text-decoration-none text-warning">運送方式</a></li>-->
+						<li><a href="common-quest_nologin.html" class="text-decoration">常見問題</a></li>
+					</ul>
+				</div>
+				<div class="col-md-3">
+					<h5>聯絡資訊</h5>
+					<ul class="list-unstyled">
+						<li><a href="#" class="text-decoration">LINE：官方LINE帳號</a></li>
+						<li><a href="https://www.facebook.com/profile.php?id=100091698824828&mibextid=ZbWKwL"target="_blank" class="text-decoration">FACEBOOK：台南下營 鋐茶鵝</a></li>
+						<li><a href="mailto:angel19971314@gmail.com" class="text-decoration">E-mail：angel19971314@gmail.com</a></li>
+						<li><span style="color:#FEC107">電話：0966218624</span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		</footer>
+		<div class="bg-warning text-center">台南下營 鋐茶鵝 © 2023</div>
+	<!-- Footer -->
+		<!-- <footer id="footer">
+			<div class="inner">
+				<section>
+					<h2>Get in touch</h2>
+					<form method="post" action="#">
+						<div class="fields">
+							<div class="field half">
+								<input type="text" name="name" id="name" placeholder="Name" />
+							</div>
+							<div class="field half">
+								<input type="email" name="email" id="email" placeholder="Email" />
+							</div>
+							<div class="field">
+								<textarea name="message" id="message" placeholder="Message"></textarea>
+							</div>
+						</div>
+						<ul class="actions">
+							<li><input type="submit" value="Send" class="primary" /></li>
+						</ul>
+					</form>
+				</section>
+				<section>
+					<h2>Follow</h2>
+					<ul class="icons">
+						<li><a href="#" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon brands style2 fa-facebook-f"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="#" class="icon brands style2 fa-dribbble"><span class="label">Dribbble</span></a></li>
+						<li><a href="#" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
+						<li><a href="#" class="icon brands style2 fa-500px"><span class="label">500px</span></a></li>
+						<li><a href="#" class="icon solid style2 fa-phone"><span class="label">Phone</span></a></li>
+						<li><a href="#" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
+					</ul>
+				</section>
+				<ul class="copyright">
+					<li>&copy; Untitled. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+				</ul>
+			</div>
+		</footer>
+
+		</div>
+		<div class="footerpage">
+
+		</div> -->
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+			<script>$(".footerpage").load("footer.php");</script>
+			
+	</body>
+</html>

@@ -1,0 +1,12 @@
+about_nologin 關於我們(未登入)
+admin 管理者頁面
+common-quest_nologin 常見問題(未登入)
+history 歷史紀錄
+index_nologin 首頁(未登入)
+meber 會員專區
+orders 我的訂單
+password 更改密碼
+Payment 購物車付款頁
+register 註冊
+Shopping Cart 購物車一覽頁
+contact_us 聯絡我們
