@@ -1,0 +1,133 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 14px;
+}
+
+/* Navbar settings */
+.navbar-nav li.nav-item a {
+  padding: 10px;
+  text-decoration: none;
+  display: block;
+  text-decoration: none;
+}
+
+.navbar-nav li.nav-item :hover {
+  background-color: rgba(149, 149, 0, 0.554);
+  border-radius: 10px;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  bottom: 100px;
+  right: 0%;
+  z-index: 999;
+  background-color: #fedc0082;
+  border-radius: 20px;
+  margin: 10px;
+}
+
+.sidebar a {
+  margin: 10px;
+  display: inline-block;
+}
+
+.sidebar img {
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.sidebar img:hover {
+  transform: scale(1.2);
+}
+
+/* Payment.css */
+/* Add your custom CSS styles here */
+
+.p-5 {
+  padding: 5rem;
+}
+
+.text-center_payment {
+  text-align: center;
+}
+
+.bg-light {
+  background-color: #f8f9fa;
+}
+
+h1 {
+  color: #333;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.container {
+  max-width: 800px;
+}
+
+.card {
+  background-color: #fff;
+  border: none;
+  border-radius: 0.25rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.form-label {
+  color: #333;
+  font-size: 1rem;
+}
+
+.form-control {
+  border-color: #333;
+  border-radius: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+}
+
+.form-select {
+  border-color: #333;
+  border-radius: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  background-color: #fff;
+}
+
+.form-check-label {
+  color: #333;
+  font-size: 0.875rem;
+}
+
+.btn-primary {
+  background-color: #FFE66F;
+  border-color: #FFE66F;
+  color: #333;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #ffd351;
+  border-color: #ffd351;
+  color: #333;
+}
+
+/* Footer設定 */
+.text-decoration 
+{
+    color: #FEC107;
+	text-decoration: none;
+}
+
+.text-decoration:hover
+{
+    color: #000080;
+}
+
+/* Add more custom styles as needed */

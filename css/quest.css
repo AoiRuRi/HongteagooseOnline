@@ -1,0 +1,162 @@
+
+#logo /*每頁頁籤設定*/
+	{
+		padding: 1.5em 0em;
+		text-transform: uppercase;
+	}
+
+#logo a 
+	{
+		color: #3f3f3f;
+	}
+
+  #page  /*頁籤分隔線*/
+	{
+		overflow: hidden;
+		padding: 6em 0em;
+		border-top: 1px solid #E5E5E5;
+	}
+
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+.fullwidth-block {
+    padding: 30px 0;
+  }
+
+.inner-content {
+    margin-top: -80px;
+    padding: 30px 0;
+  }
+
+.section-title {
+    margin: 0 0 30px;
+    color:#000;
+    font-weight: 600;
+    text-align: center;
+  }
+
+/* 置中second-title */
+.quest-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 橘底白字中標題 */
+.section-second-title {
+    display: inline-block;
+    padding: 10px 20px;
+    margin:  15px ;
+    color: #fff;
+    font-weight: 600;
+    background-color: #f16f23;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    position: relative;
+    text-align: center;
+}
+
+.accordion-body{
+  font-weight: bold;
+}
+/* .accordion {
+    overflow: hidden;
+    border-top: 3px solid #fedc0082;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  } */
+
+.accordion .accordion-toggle {
+    position: relative;
+    padding: 10px  30px 10px 0;
+  }
+
+.accordion .accordion-toggle h3 {
+    display: inline-block;
+    margin: 0 20px 0 0;
+    vertical-align: middle;
+    color: black;
+    font-size: 18px;
+    font-size: 1.125rem;
+  }
+
+
+.accordion .accordion-content p {
+  padding: 5px;
+  background-color: #e7e3db;
+  border-radius: 4px;
+}
+
+
+
+
+/* 關於我們連結 */
+
+
+.link {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.link div {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 10px;
+}
+
+/* 關於我們 ＲＷＤ */
+
+@media screen and (max-width: 767px) {
+
+  .link {
+    flex-wrap:wrap;
+  }
+
+  .link div{
+    width: 100%;
+    margin: 20px;
+  }
+
+
+}
+
+
+/* 修改點擊後的底色 */
+.accordion-button:not(.collapsed):focus {
+  background-color: #ffc107c0 !important; /* 給予高優先度 */
+  outline: none; /* 取消默認的 focus 陰影效果 */
+  box-shadow: none; /* 取消默認的 focus 陰影效果（適用於新版 Bootstrap） */
+}
+
+/* 非 focus 狀態下的樣式 */
+.accordion-button:not(.collapsed) {
+  background-color: #ffc107c0 !important; 
+}
+
+.accordion-button.collapsed {
+  box-shadow: none !important; /* 取消默認的收起陰影效果 */
+}
+
+
+
+
+/* Footer設定 */
+.text-decoration 
+{
+    color: #FEC107;
+	text-decoration: none;
+}
+
+.text-decoration:hover
+{
+    color: #000080;
+}

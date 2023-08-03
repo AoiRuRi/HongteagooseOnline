@@ -1,0 +1,56 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  font-size: 14px;
+}
+/*navbar設定*/
+.navbar-nav li.nav-item a {
+  padding: 10px;
+  text-decoration: none;
+  display: block;
+  text-decoration: none;
+}
+.navbar-nav li.nav-item :hover {
+  background-color: rgba(149, 149, 0, 0.554);
+  border-radius: 10px;
+}
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  bottom: 100px;
+  right: 0%;
+  z-index: 999;
+  background-color: #fedc0082;
+  border-radius: 20px;
+  margin: 10px;
+}
+
+
+.sidebar a {
+  margin: 10px;
+  display: inline-block;
+}
+
+.sidebar img {
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.sidebar img:hover {
+  transform: scale(1.2);
+}
+
+/* Footer設定 */
+.text-decoration 
+{
+    color: #FEC107;
+	text-decoration: none;
+}
+
+.text-decoration:hover
+{
+    color: #000080;
+}
+

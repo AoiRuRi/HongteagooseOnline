@@ -1,0 +1,40 @@
+
+#logo /*每頁頁籤設定*/
+{
+	padding: 1.5em 0em;
+	text-transform: uppercase;
+	border-bottom: 1px solid #E5E5E5;
+}
+
+#logo a 
+{
+	color: #3f3f3f;
+}
+
+/* 商品標題 */
+.section-heading {
+	margin: 50px 50px 30px 50px;
+	border-left: 3px solid #d2b4a1;
+    padding-left: 10px;
+	font-size: 24px;
+	font-weight: bold;
+}
+
+
+
+/* Footer設定 */
+.text-decoration 
+{
+    color: #FEC107;
+	text-decoration: none;
+}
+
+.text-decoration:hover
+{
+    color: #000080;
+}
+
+.list-unstyled
+{
+	text-align:left;	
+}
