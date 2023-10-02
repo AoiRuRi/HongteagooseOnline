@@ -1,4 +1,19 @@
 <!DOCTYPE HTML>
+<?php session_start(); 
+// 檢查使用者是否已登入
+if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) {
+    $username = $_SESSION['username']; // 獲取使用者名稱
+    $account = $_SESSION['account']; // 獲取使用者名稱
+    $loginText =  "會員：$username"; // 將登入文字設置為使用者名稱
+} else {
+    $loginText = "會員登入"; // 預設為 "會員登入"
+    echo '<script>';
+    echo 'alert("請先登入後才可以瀏覽商品");';
+    echo 'window.location.href = "index_nologin.php";';
+    echo '</script>';
+    exit();
+}
+?>  
 <!--
 	Phantom by HTML5 UP
 	html5up.net | @ajlkn
@@ -34,23 +49,23 @@
 	<nav>
 		<div class="navbar navbar-expand-lg p-3" style="background-color: #fede00">
 			<div class="container">
-				<a href="index_nologin.html"><img style="width: 280px;" src="images/logo.png"></a>
+				<a href="index_nologin.php"><img style="width: 280px;" src="images/logo.png"></a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 	
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav ms-auto">
-						<li class="nav-item"><a href="about_nologin.html" class="text-black">關於我們</a></li>
-						<!-- <li><a href="#">商品總覽</a></li> -->
-						<li class="nav-item"><a href="#" data-bs-toggle="modal" data-bs-target="#login-modal" class="text-black">線上訂購</a></li>
-						<li class="nav-item"><a href="common-quest_nologin.html" class="text-black">常見問題</a></li>
-						<li class="nav-item"><a href="contact_nologin.html" class="text-black">聯絡我們</a></li>
-						<li class="nav-item"><a href="#" data-bs-toggle="modal" data-bs-target="#login-modal" class="text-black">會員登入</a></li>
+						<li class="nav-item"><a href="about_login.php" class="text-black">關於我們</a></li>
+						<li class="nav-item"><a href="shoppage.php" class="text-black">線上訂購</a></li>
+						<!-- <li class="nav-item"><a href="#" data-bs-toggle="modal" data-bs-target="#login-modal" class="text-black">線上訂購</a></li> -->
+						<li class="nav-item"><a href="common_quest_login.php" class="text-black">常見問題</a></li>
+						<li class="nav-item"><a href="contact_login.php" class="text-black">聯絡我們</a></li>
+						<li class="nav-item"><a href="#" data-bs-toggle="modal" data-bs-target="#login-modal" class="text-black"><?php echo $loginText; ?></a></li>
 						<ul class="navbar-nav ml-auto">
 							<li class="nav-item">
 							  <a href="#" id="cartButton" class="d-flex align-items-center text-black">
-								<img src="images/shopping-cart.png" width="20" height="20" class="me-2">購物車
+								<img src="images/shopping-cart.png" width="20" height="20" class="me-2">已選購商品
 								<span id="cartCount" class="cart-count"></span>
 							  </a>
 							</li>
@@ -65,7 +80,7 @@
 							<div class="modal-dialog">
 							  <div class="modal-content">
 								<div class="modal-header">
-								  <h5 class="modal-title">購物車</h5>
+								  <h5 class="modal-title">已選購商品</h5>
 								  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="closeCartModal()"></button>
 								</div>
 								<div class="modal-body">
@@ -80,8 +95,8 @@
                                  </p>
 								</div>
 								<div class="modal-footer">
-                  <button class="btn btn-outline-warning" onclick="clearCart()">清空購物車</button>
-									<button class="btn btn-outline-warning" onclick="writeToDatabase()">前往結帳</button>
+                  <button class="btn btn-outline-warning" onclick="clearCart()">清空商品</button>
+									<button class="btn btn-outline-warning" onclick="generateCartIdAndWriteToDatabase()">加入購物車</button>
 								</div>
 							  </div>
 							</div>
@@ -90,7 +105,7 @@
 
 <!-- 每頁開頭頁籤區塊 -->
 <div id="logo" class="container ">
-    <i class="fa-solid fa-house ms-2" style="color: #8f8f8f; "></i>&nbsp;<a href="index_nologin.html">首頁</a> — <a href="shoppage.html">線上訂購</a>
+    <i class="fa-solid fa-house ms-2" style="color: #8f8f8f; "></i>&nbsp;<a href="index_login.php">首頁</a> — <a href="shoppage.php">線上訂購</a>
   </div>
   
   <!-- 商品頁 -->
@@ -99,10 +114,10 @@
       <!-- 左側固定欄位 -->
       <div class="col-md-2 mt-5">
         <div class="list-group" >
-          <a href="index_nologin.html" class="list-group-item list-group-item-action border-0 border-bottom">首頁</a>
-          <a href="about_nologin.html" class="list-group-item list-group-item-action border-0 border-bottom">關於我們</a>
-          <a href="common-quest_nologin.html" class="list-group-item list-group-item-action border-0 border-bottom">常見問題</a>
-          <a href="contact_nologin.html" class="list-group-item list-group-item-action border-0 border-bottom">聯絡我們</a>
+          <a href="index_login.php" class="list-group-item list-group-item-action border-0 border-bottom">首頁</a>
+          <a href="about_login.php" class="list-group-item list-group-item-action border-0 border-bottom">關於我們</a>
+          <a href="common_quest_login.php" class="list-group-item list-group-item-action border-0 border-bottom">常見問題</a>
+          <a href="contact_login.php" class="list-group-item list-group-item-action border-0 border-bottom">聯絡我們</a>
         </div>
       </div>
       <!-- 右側商品列表 -->
@@ -115,10 +130,10 @@
                 <!-- 每項商品 -->
                 <?php
                 // 設定資料庫連線參數
-                $host = '192.168.2.200';
-                $user = 'hongteag_goose';
-                $password = 'ab7777xy';
-                $dbname = 'hongteag_goose';
+                $host = '192.168.2.200'; // 或 '127.0.0.1'
+                $user = 'hongteag_goose'; // 使用者帳號
+                $password = 'ab7777xy'; // 使用者密碼
+                $dbname = 'hongteag_goose'; // 資料庫名稱
 
                 // 建立資料庫連線
                 $conn = new mysqli($host, $user, $password, $dbname);
@@ -346,6 +361,7 @@ function updateTotalPrice() {
 							}
 
     function addToCart(productName, inputId, cartIndex) {
+        
     // 使用AJAX向伺服器端API發送請求
     $.ajax({
         type: 'POST',
@@ -400,10 +416,38 @@ function updateTotalPrice() {
     });
 }
 
-// 新增function來將購物車內容寫入資料庫
-function writeToDatabase() {
-    var cartItems = JSON.parse(localStorage.getItem("cartItems"));
+function generateCartIdAndWriteToDatabase() {
+        // 生成隨機的cartId
+        var cartId = generateRandomCartId();
+        console.log("生成的cartId為：" + cartId);
+        
+        // 將cartId與購物車內容一併傳遞到後端
+        var cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+        console.log("cartItems: ", cartItems);
+    writeToDatabase(cartId, cartItems); // 傳遞cartItems參數
+    }
 
+    function generateRandomCartId() {
+        // 定義可能的字元，用於生成Cart_ID
+    var characters = '0123456789';
+    var cartId = '';
+
+    // 定義Cart_ID的長度，這裡假設是4個字元長度
+    var length = 8;
+
+    // 生成隨機的Cart_ID
+    for (var i = 0; i < length; i++) {
+        cartId += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+
+    // 返回生成的Cart_ID
+    return cartId;
+    }
+
+// 新增function來將購物車內容寫入資料庫
+function writeToDatabase(cartId,cartItems) {
+    // var cartItems = JSON.parse(localStorage.getItem("cartItems"));
+    var account = '<?php echo $_SESSION['account']; ?>';
     if (!cartItems || cartItems.length === 0) {
       console.log("購物車內沒有商品");
       return;
@@ -411,10 +455,12 @@ function writeToDatabase() {
 
 // 將購物車內的每個商品資料都加入陣列中
 for (var i = 0; i < cartItems.length; i++) {
+    cartItems[i].cartId = cartId;
+    cartItems[i].account = account; // 傳送登入的 account 值
     var productName = cartItems[i].productName;
     var quantity = cartItems[i].quantity;
     var productPrice = cartItems[i].productPrice;
-    var totalPrice = cartItems[i].totalPrice;
+    var totalPrice = cartItems[i].totalPrice;}
   
         // 使用AJAX向伺服器端API發送請求
         $.ajax({
@@ -422,10 +468,12 @@ for (var i = 0; i < cartItems.length; i++) {
       url: 'php/addtocart.php', // 新增的PHP檔案
       data: {
         cartItems: cartItems,
+        cartId:cartId,
         productName: productName,
         quantity: quantity,
         productPrice: productPrice,
-        totalPrice: totalPrice
+        totalPrice: totalPrice,
+        account: account // 傳送登入的 account 值
       },
       dataType: 'json',
       success: function (response) {
@@ -450,15 +498,37 @@ for (var i = 0; i < cartItems.length; i++) {
           var modal = bootstrap.Modal.getInstance(cartModal);
           modal.hide();
         } else {
-          console.log("寫入資料庫時發生錯誤");
+          console.log("寫入資料庫時發生錯誤"+ response.message);
         }
       },
-      error: function (error) {
-        console.error(error);
+      error: function (xhr, status, error) {
+        // 清空localStorage中的購物車資料
+        localStorage.removeItem("cartItems");
+
+// 清空購物車內的品項列表
+var cartItemsDiv = document.getElementById("cart-items");
+cartItemsDiv.innerHTML = "";
+
+// 重設購物車數量並更新畫面
+cartCount = 0;
+document.getElementById('cartCount').innerText = cartCount;
+
+// 更新購物車彈出視窗內的總金額
+updateTotalPrice();
+
+// 關閉購物車彈出視窗
+var cartModal = document.getElementById('cartModal');
+var modal = bootstrap.Modal.getInstance(cartModal);
+modal.hide();
+        console.error("AJAX 請求錯誤：", xhr, status, error);
         console.log("與伺服器通訊時發生錯誤");
       }
     });
-    }
+    // 等待 2 秒後執行跳轉
+setTimeout(function() {
+    window.location.href = 'Payment.php';
+}, 2000); // 2000 毫秒（即 2 秒）
+
   }
 
 
@@ -521,39 +591,32 @@ for (var i = 0; i < cartItems.length; i++) {
                         </div>
 
 
-<!--登入彈窗區塊，有與JS配合-->
+<!-- 登入彈窗區塊，有與JS配合 -->
 <div id="login-modal" class="modal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <!-- Close button -->'
+            <!-- Close button -->
             <div class="modal-header">
-                <h5 class="modal-title">會員登入</h5>
+                <h5 class="modal-title">會員</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-
-    
-            <!-- Login form -->
-            <form class="form1" action="show_form.php" method="post">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="account">帳號:</label>
-                        <input type="text" id="account" name="account" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">密碼:</label>
-                        <input type="password" id="password" name="password" class="form-control" required>
-                    </div>
-                </div>
+            <!-- Logout form -->
+            <form class="form1" action="php/logout.php" method="post" id="logout-form">
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-outline-warning">會員登入</button>
-                    <button type="submit" class="btn btn-warning" formaction="member.php">註冊會員</button>
+                    <!-- 顯示使用者名稱 -->
+                    <span>歡迎，<?php echo $_SESSION['username']; ?></span>
+                    <button type="button" class="btn btn-warning" onclick="redirectTorevise()">會員中心</button>
+                    <!-- 登出按鈕 -->
+                    <button type="submit" class="btn btn-outline-warning" name="action" value="logout">登出</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+
 <!--側邊攔-->
 <div class="sidebar">
     <a href="https://www.facebook.com/profile.php?id=100091698824828&mibextid=ZbWKwL"target="_blank"><img src="images/facebook.png" style="width: 35px;height:35px;" ></a>
@@ -562,39 +625,41 @@ for (var i = 0; i < cartItems.length; i++) {
     <a href="#" class="back-to-top"><img src="images/up-arrows.png" style="width: 35px;height:35px;"></a>
 </div>
 
-    <!--底部欄 -->
-    <footer class="p-4 border-top">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-3">
-					<h3>台南下營 鋐茶鵝</h3>
-				</div>
-				<div class="col-md-3">
-				<h5>關於我們</h5>
-					<ul class="list-unstyled">
-						<li><a href="about_nologin.html" class="text-decoration">關於鋐茶鵝</a></li>
-						<li><a href="index_nologin.html" class="text-decoration">營業資訊</a></li>
-					</ul>
-				</div>
-				<div class="col-md-3">
-					<h5>購物須知</h5>
-					<ul class="list-unstyled">
-						<li><a href="common-quest_nologin.html" class="text-decoration">常見問題</a></li>
-					</ul>
-				</div>
-				<div class="col-md-3">
-					<h5>聯絡資訊</h5>
-					<ul class="list-unstyled">
-						<li><a href="#" class="text-decoration">LINE：官方LINE帳號</a></li>
-						<li><a href="https://www.facebook.com/profile.php?id=100091698824828&mibextid=ZbWKwL"target="_blank" class="text-decoration">FACEBOOK：台南下營 鋐茶鵝</a></li>
-						<li><a href="mailto:angel19971314@gmail.com" class="text-decoration">E-mail：angel19971314@gmail.com</a></li>
-						<li><span style="color:#FEC107">電話：0966218624</span></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		</footer>
-		<div class="bg-warning text-center">台南下營 鋐茶鵝 © 2023</div>
+     <!--底部欄 -->
+     <footer class="p-4 border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <h3>台南下營 鋐茶鵝</h3>
+            </div>
+            <div class="col-md-3">
+            <h5>關於我們</h5>
+                <ul class="list-unstyled">
+                    <li><a href="about_login.php" class="text-decoration">關於鋐茶鵝</a></li>
+                    <li><a href="index_login.php#營業資訊" class="text-decoration">營業資訊</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5>購物須知</h5>
+                <ul class="list-unstyled">
+                   <!--<li><a href="#" class="text-decoration-none text-warning">付款方式</a></li>
+                    <li><a href="#" class="text-decoration-none text-warning">運送方式</a></li>-->
+                    <li><a href="common_quest_login.php" class="text-decoration">常見問題</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5>聯絡資訊</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-decoration">LINE：官方LINE帳號</a></li>
+                    <li><a href="https://www.facebook.com/profile.php?id=100091698824828&mibextid=ZbWKwL"target="_blank" class="text-decoration">FACEBOOK：台南下營 鋐茶鵝</a></li>
+					<li><a href="mailto:angel19971314@gmail.com" class="text-decoration">E-mail：angel19971314@gmail.com</a></li>
+					<li><span style="color:#FEC107">電話：0966218624</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </footer>
+    <div class="bg-warning text-center">台南下營 鋐茶鵝 © 2023</div>
 	
 
 		<!-- Scripts -->
@@ -604,6 +669,21 @@ for (var i = 0; i < cartItems.length; i++) {
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script>$(".footerpage").load("footer.php");</script>
+			<script>
+            function redirectTorevise() {
+        window.location.href = "ReviseMember.php";
+    }
+			document.addEventListener("DOMContentLoaded", function() {
+			var memberLoginButton = document.querySelector(".nav-item a[data-bs-target='#login-modal']");
+
+			// 檢查使用者是否已登入
+			if (<?php echo isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true ? 'true' : 'false'; ?>) {
+				var username = <?php echo isset($_SESSION['username']) ? json_encode($_SESSION['username']) : '""'; ?>;
+				memberLoginButton.textContent = "會員:"+username; // 修改按鈕文字為使用者名稱
+				memberLoginButton.href = "member.html?username=" + encodeURIComponent(username); // 設定跳轉連結到會員中心
+			}
+			});</script>	
 			
 	</body>
+
 </html>

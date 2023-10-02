@@ -31,7 +31,7 @@ $result = $conn->query($sql);
         </div>
     </div>
     <div>
-        <table id="left">
+    <table id="left">
             <tr>
             <th><a href="#">首頁</a></th>
             </tr>
@@ -42,7 +42,7 @@ $result = $conn->query($sql);
             <td><a href="admin_news.php">最新消息</a></td>
             </tr>
             <tr>
-            <td><a href="admin_product.php">熱門品項</a></td>
+            <td><a href="admin_popular.php">熱門品項</a></td>
             </tr>
             <tr>
             <th>商品頁</th>
@@ -51,11 +51,26 @@ $result = $conn->query($sql);
             <td><a href="admin_product.php">商品管理</a></td>
             </tr>
             <tr>
-            <th>員工</th>
+            <th>訂單</th>
             </tr>
             <tr>
-            <td><a href="admin_employee.html">員工管理</a></td>
-            </tr>    
+            <td><a href="admin_order_nopay.php">未付款</a></td>
+            </tr>
+            <tr>
+            <td><a href="admin_order_confirmed.php">待確認款項</a></td>
+            </tr>
+            <tr>
+            <td><a href="admin_order_havepay.php">待出貨</a></td>
+            </tr>
+            <tr>
+            <td><a href="admin_order_ship.php">已出貨</a></td>
+            </tr>
+            <tr>
+            <th>使用者管理</th>
+            </tr>
+            <tr>
+            <td><a href="admin_user.php">使用者管理</a></td>
+            </tr>        
         </table>
     </div>
     <div>
