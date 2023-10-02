@@ -40,6 +40,15 @@
     position:absolute;
     right: 0;
   }
+  .sub-table{
+    width: 90%;
+    border-collapse: collapse;
+    position:relative;
+    right: 0;
+  }
+  .sub-table th {
+    background-color: #fede00;
+  }
   span,button{
     margin-bottom: 10px;
     background-color: #4CAF50;
