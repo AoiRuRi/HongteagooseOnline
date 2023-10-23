@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <?php session_start(); 
 // 檢查使用者是否已登入
@@ -74,35 +73,41 @@ if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) {
                 <a href="revisepassword.php" class="list-group-item list-group-item-action">更改密碼</a>
             </div>
         </div>
-        <div class="col-md-9" >
+        <div class="col-md-9" id="main-section">
             <!-- 右側內容 -->
             
             <?php
-                // 設定資料庫連線參數
-                $host = '192.168.2.200'; // 或 '127.0.0.1'
-                $user = 'hongteag_goose'; // 使用者帳號
-                $password = 'ab7777xy'; // 使用者密碼
-                $dbname = 'hongteag_goose'; // 資料庫名稱
+ // 設定資料庫連線參數
+ $host = '192.168.2.200';
+ $user = 'hongteag_goose';
+ $password = 'ab7777xy';
+ $dbname = 'hongteag_goose';
 
-                // 建立資料庫連線
-                $conn = new mysqli($host, $user, $password, $dbname);
-                $conn->set_charset("utf8");
-                // 檢查連線是否成功
-                if ($conn->connect_error) {
-                    die("連線失敗: " . $conn->connect_error);
-                }
-                // 執行 SQL 查詢語句
+ // 建立資料庫連線
+ $conn = new mysqli($host, $user, $password, $dbname);
+ $conn->set_charset("utf8");
 
-                // 只找符合目前已登入的帳戶資訊的資料
-                $currentAccount = $_SESSION['account'];
-                $sql = "SELECT Product_ID, ProductName, Purchase_OrderID, Purchase_Quantity, Purchase_Price, Status, Transfer, Date 
-                FROM purchase_order WHERE Account = '$currentAccount'";
-                $result = $conn->query($sql);
-            ?>
+ // 檢查連線是否成功
+ if ($conn->connect_error) {
+     die("連線失敗: " . $conn->connect_error);
+ }
+ // 執行 SQL 查詢語句
 
-            <h1>我的訂單</h1>
+ // 只找符合目前已登入的帳戶資訊的資料
+$currentAccount = $_SESSION['account'];
+$sql = "SELECT Product_ID, ProductName, Purchase_OrderID, Purchase_Quantity, Purchase_Price, Status, Transfer, Date 
+FROM purchase_order WHERE Account = '$currentAccount'";
+$result = $conn->query($sql);
+?>
+
+                <!-- My Orders content -->
+                <div class="mt-4">
+                <h1>我的訂單</h1>
             <div >
-                <?php while ($row = $result->fetch_assoc()) : ?>
+                
+                <?php 
+                $previousOrderID = null; // 用於跟蹤前一筆訂單編號
+                while ($row = $result->fetch_assoc()) : ?>
                     <?php if ($row["Purchase_OrderID"] != $previousOrderID) : ?>
                         <div class="card mt-2"style="margin: 5px;">
                             <div class="order-card" data-order-id="<?= $row["Purchase_OrderID"] ?>">
@@ -110,18 +115,23 @@ if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) {
                                     <div class="row">
                                         <div class="card-body col-md-2 d-flex justify-content-center align-items-center"><?= $row["Date"] ?></div>
                                         <div class="card-body col-md-1 d-flex justify-content-center align-items-center"><?= $row["Purchase_OrderID"] ?></div>
-                                        <div class="card-body col-md-2 d-flex justify-content-center align-items-center">
+                                        <div class="card-body col-md-2 d-flex justify-content-center align-items-center inputdiv">
                                             <input type="text" class="form-control transfer-input" value="<?= $row["Transfer"] ?>" placeholder="轉帳後五碼">
                                         </div>
 
                                         <div class="card-body col-md-1 d-flex justify-content-center align-items-center">
-                                            <button class="btn btn-warning save-btn">儲存</button>
+                                        <button class="btn btn-warning save-btn" data-order-id="<?= $row["Purchase_OrderID"] ?>">儲存</button>
+
                                         </div>
                                         <div class="card-body col-md-1 d-flex justify-content-center align-items-center"><?= $row["Status"] ?></div>
                                         <div class="card-body col-md-1 d-flex justify-content-center align-items-center">
                                             <button class="btn btn-warning" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?= $row["Purchase_OrderID"] ?>" aria-expanded="false" aria-controls="collapse<?= $row["Purchase_OrderID"] ?>">展開</button>
                                         </div>
                                     </div>
+                                    <?php
+        // 設定總金額變數
+        $totalPrice = 0;
+        ?>
                                     <div class="collapse" id="collapse<?= $row["Purchase_OrderID"] ?>">
                                         <div class="card card-body" style="margin: 10px;">
                                             <table>
@@ -150,6 +160,10 @@ if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) {
                                                             <td><?= $subRow["Purchase_Quantity"] ?></td>
                                                             <td><?= $subRow["Purchase_Price"] ?></td>
                                                         </tr>
+                                                        <?php
+                            // 將每個商品的價格加到總金額
+                            $totalPrice += $subRow["Purchase_Price"];
+                            ?>
                                                     <?php endwhile;
 
                                                     $subStmt->close();
@@ -157,6 +171,11 @@ if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) {
                                                 ?>
                                                 </tbody>
                                             </table>
+                                            <div class="row mt-2">
+                    <div class="col-md-12">
+                        <strong>總金額: $<?= $totalPrice ?></strong>
+                    </div>
+                </div>
                                         </div>
                                     </div>
                                 </div>
@@ -170,17 +189,73 @@ if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) {
         </div>
         </div>
         </div>
-
-
         <?php
         // 關閉資料庫連線
         $conn->close();
         ?>      
           
-
+            
              
-                
-
+                <footer class="p-4 border-top mt-auto">
+                    <!-- ...existing code... -->
+                    <div class="p-5 text-center_time bg-light mt-4">
+                        <h1>營業資訊</h1>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h3>光復市場</h3>
+                                <img src="images/Guangfu.jpg" alt="光復市場圖片" class="img-fluid rounded-circle">
+                            </div>
+                            <div class="col-md-3">
+                                <h3>永春市場</h3>
+                                <img src="images/Yongchun.jpg" alt="永春市場圖片" class="img-fluid rounded-circle">
+                            </div>
+                            <div class="col-md-6 mt-4 mt-md-0">
+                                <div class="my-auto">
+                                    <h4 class="text-center_time">營業時間：早上6:00 - 售完為止</h4>
+                                    <br>
+                                    <a href="shoppage.php" class="btn btn-warning">立即下單</a>
+                                    <a href="#" class="btn btn-outline-warning disabled">提供宅配服務 <img src="images/delivery.png" style="width: 20px;height:20px;"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </footer>
+                <!--底部欄 -->
+    <footer class="p-4 border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <h3>台南下營 鋐茶鵝</h3>
+            </div>
+            <div class="col-md-3">
+            <h5>關於我們</h5>
+                <ul class="list-unstyled">
+                    <li><a href="about_login.php" class="text-decoration">關於鋐茶鵝</a></li>
+                    <li><a href="index_login.php#營業資訊" class="text-decoration">營業資訊</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5>購物須知</h5>
+                <ul class="list-unstyled">
+                   <!--<li><a href="#" class="text-decoration-none text-warning">付款方式</a></li>
+                    <li><a href="#" class="text-decoration-none text-warning">運送方式</a></li>-->
+                    <li><a href="common_quest_login.php" class="text-decoration">常見問題</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5>聯絡資訊</h5>
+                <ul class="list-unstyled">
+                    <li><a href="https://lin.ee/xkDBL1w" class="text-decoration">LINE：官方LINE帳號</a></li>
+                    <li><a href="https://www.facebook.com/profile.php?id=100091698824828&mibextid=ZbWKwL"target="_blank" class="text-decoration">FACEBOOK：台南下營 鋐茶鵝</a></li>
+					<li><a href="mailto:angel19971314@gmail.com" class="text-decoration">E-mail：angel19971314@gmail.com</a></li>
+					<li><span style="color:#FEC107">電話：0966218624</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </footer>
+    <div class="bg-warning text-center">台南下營 鋐茶鵝 © 2023</div>
 
               <!-- 登入彈窗區塊，有與JS配合 -->
 <div id="login-modal" class="modal">
@@ -214,45 +289,8 @@ if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) {
     <a href="https://lin.ee/xkDBL1w"><img src="images/line.png" style="width: 35px;height:35px;"></a>
     <a href="#" class="back-to-top"><img src="images/up-arrows.png" style="width: 35px;height:35px;"></a>
 </div>
-                <!--底部欄 -->
-                <footer class="p-4 border-top">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <h3>台南下營 鋐茶鵝</h3>
-            </div>
-            <div class="col-md-3">
-            <h5>關於我們</h5>
-                <ul class="list-unstyled">
-                    <li><a href="about_nologin.php" class="text-decoration">關於鋐茶鵝</a></li>
-                    <li><a href="index_nologin.php#營業資訊" class="text-decoration">營業資訊</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3">
-                <h5>購物須知</h5>
-                <ul class="list-unstyled">
-                   <!--<li><a href="#" class="text-decoration-none text-warning">付款方式</a></li>
-                    <li><a href="#" class="text-decoration-none text-warning">運送方式</a></li>-->
-                    <li><a href="common_quest_nologin.php" class="text-decoration">常見問題</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3">
-                <h5>聯絡資訊</h5>
-                <ul class="list-unstyled">
-                    <li><a href="https://lin.ee/xkDBL1w" class="text-decoration">LINE：官方LINE帳號</a></li>
-                    <li><a href="https://www.facebook.com/profile.php?id=100091698824828&mibextid=ZbWKwL"target="_blank" class="text-decoration">FACEBOOK：台南下營 鋐茶鵝</a></li>
-					<li><a href="mailto:angel19971314@gmail.com" class="text-decoration">E-mail：angel19971314@gmail.com</a></li>
-					<li><span style="color:#FEC107">電話：0966218624</span></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    </footer>
-    <div class="bg-warning text-center">台南下營 鋐茶鵝 © 2023</div>
 
-</body>
-
-
+    </body>
    
     <script>
     function redirectTorevise() {
@@ -281,16 +319,8 @@ if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) {
 });
 </script>
 
+
 <script>
-// 在頁面載入時執行，用於顯示所有子表格
-document.addEventListener("DOMContentLoaded", () => {
-    const toggleButtons = document.querySelectorAll('.toggle-btn');
-
-    toggleButtons.forEach(button => {
-        button.click(); // 模擬點擊按鈕，展開所有子表格
-    });
-});
-
 const toggleButtons = document.querySelectorAll('.toggle-btn');
 
 toggleButtons.forEach(button => {
@@ -305,55 +335,38 @@ toggleButtons.forEach(button => {
             } else {
                 subRow.style.display = 'table-row'; // 展開
             }
-        } else {
-            // 使用AJAX載入子表格資料
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', 'php/order_detail.php?order_id=' + row.cells[1].textContent, true);
+}})
+    });
+  // 在頁面載入時執行，用於顯示所有子表格
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggleButtons = document.querySelectorAll('.toggle-btn');
 
-            xhr.onload = () => {
-                if (xhr.status === 200) {
-                    const detailsRow = document.createElement('tr');
-                    detailsRow.classList.add('sub-table-row');
-                    detailsRow.innerHTML = `
-                        <td colspan="6">
-                            <!-- 將AJAX回傳的資料插入這裡 -->
-                            ${xhr.responseText}
-                        </td>
-                    `;
+    toggleButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const row = button.parentElement.parentElement;
+            const subRow = row.nextElementSibling;
 
-                    row.parentNode.insertBefore(detailsRow, row.nextSibling);
-                    // 在子表格中找到價格數據，這部分取決於您的子表格結構
-                    const subTable = detailsRow.querySelector('.sub-table');
-                    const subTablePriceCells = subTable.querySelectorAll('tbody td:nth-child(3)'); // 這裡假設價格是子表格中的第三列
-
-                    let subTotalPrice = 0;
-
-                    subTablePriceCells.forEach(priceCell => {
-                        subTotalPrice += parseFloat(priceCell.textContent);
-                    });
-
-                    // 將總價格插入到母表格中
-                    const totalPriceCell = document.createElement('td');
-                    totalPriceCell.textContent = `${subTotalPrice.toFixed(0)}`; //tofixed後面的數字代表顯示到小數第幾位
-                    row.insertBefore(totalPriceCell, row.querySelector('td:nth-child(3)')); // 插入到第四個 <td> 的前面
-                    row.parentElement.insertBefore(detailsRow, row.nextSibling);
+            if (subRow && subRow.classList.contains('sub-table-row')) {
+                // 子表格已存在，切換可見性以實現展開/收起
+                if (subRow.style.display === 'table-row') {
+                    subRow.style.display = 'none'; // 收起
                 } else {
-                    console.error('AJAX request failed');
+                    subRow.style.display = 'table-row'; // 展開
                 }
-            };
-
-            xhr.send();
-        }
+            } 
+            });
     });
 });
-</script>
-<script>//轉帳後五碼寫入資料庫
-    $(document).ready(function () {
-        $('.save-btn').click(function () {
-            const orderID = $(this).data('order-id');
-            const transferCode = $(this).prev('.transfer-input').val();
 
-            // 發送AJAX請求到後端以更新資料庫中的transfer欄位
+</script>
+<script>//轉帳代碼更新功能
+    $(document).ready(function () {     //等待頁面完全載入
+        $('.save-btn').click(function () {
+            const orderID = $(this).data('order-id');//尋找當前點選的save-btn按紐的data-order-id的值
+            const transferCode = $(this).closest('.row').find('.transfer-input').val();//尋找跟當前點選的save-btn按鈕最近的class=row，
+            //再找他的class=transfer-input的值
+            
+            // 發送 AJAX 請求到後端以更新數據庫中的 transfer 欄位
             $.ajax({
                 type: 'POST',
                 url: 'php/update_transfer.php', // 指向處理更新的後端腳本
