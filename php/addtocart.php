@@ -1,9 +1,9 @@
 <?php
-// 設定資料庫連線參數
-$host = '192.168.2.200'; // 或 '127.0.0.1'
-$user = 'hongteag_goose'; // 使用者帳號
-$password = 'ab7777xy'; // 使用者密碼
-$dbname = 'hongteag_goose'; // 資料庫名稱
+// 建立與資料庫的連線，這部分需要您根據自己的資料庫設定進行修改
+$host = '192.168.2.200';
+$user = 'hongteag_goose';
+$password = 'ab7777xy';
+$dbname = 'hongteag_goose';
 $conn = new mysqli($host, $user, $password, $dbname);
 $conn->set_charset("utf8");
 // 檢查連線是否成功
@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["cartItems"],$_POST["ca
     }
 
      // 使用 prepared statement 防止 SQL Injection
-     $stmt = $conn->prepare("INSERT INTO shoppingcart (Cart_ID, Product_ID, Sales_Quantity, Price, TotalPrice, Account) VALUES (?, ?, ?, ?, ?, ?)");
+     $stmt = $conn->prepare("INSERT INTO shoppingcart (Purchase_OrderID	, Product_ID, Sales_Quantity, Price, TotalPrice, Account) VALUES (?, ?, ?, ?, ?, ?)");
         
    
      // 將資料綁定到 prepared statement 的參數中
