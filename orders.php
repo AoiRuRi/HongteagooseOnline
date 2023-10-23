@@ -74,150 +74,113 @@ if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) {
                 <a href="revisepassword.php" class="list-group-item list-group-item-action">更改密碼</a>
             </div>
         </div>
-        <div class="col-md-9" id="main-section">
+        <div class="col-md-9" >
             <!-- 右側內容 -->
-            <div class="col-md-9">
+            
             <?php
- // 設定資料庫連線參數
-$host = '192.168.2.200'; // 或 '127.0.0.1'
-$user = 'hongteag_goose'; // 使用者帳號
-$password = 'ab7777xy'; // 使用者密碼
-$dbname = 'hongteag_goose'; // 資料庫名稱
+                // 設定資料庫連線參數
+                $host = '192.168.2.200'; // 或 '127.0.0.1'
+                $user = 'hongteag_goose'; // 使用者帳號
+                $password = 'ab7777xy'; // 使用者密碼
+                $dbname = 'hongteag_goose'; // 資料庫名稱
 
- // 建立資料庫連線
- $conn = new mysqli($host, $user, $password, $dbname);
- $conn->set_charset("utf8");
- // 檢查連線是否成功
- if ($conn->connect_error) {
-     die("連線失敗: " . $conn->connect_error);
- }
- // 執行 SQL 查詢語句
+                // 建立資料庫連線
+                $conn = new mysqli($host, $user, $password, $dbname);
+                $conn->set_charset("utf8");
+                // 檢查連線是否成功
+                if ($conn->connect_error) {
+                    die("連線失敗: " . $conn->connect_error);
+                }
+                // 執行 SQL 查詢語句
 
- // 只找符合目前已登入的帳戶資訊的資料
-$currentAccount = $_SESSION['account'];
-$sql = "SELECT Product_ID, ProductName, Purchase_OrderID, Purchase_Quantity, Purchase_Price, Status, Transfer, Date 
-FROM purchase_order WHERE Account = '$currentAccount'";
-$result = $conn->query($sql);
-?>
-
-                <!-- My Orders content -->
-                <div class="mt-4">
-                    <h3>我的訂單</h3>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>訂購日期</th>
-                                <th>訂單編號</th>
-                                <th>價格</th>
-                                <th>狀態</th>
-                                <th>轉帳代碼後五碼</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Add your code to fetch and display the order details here -->
-                            <?php
-
-            $previousOrderID = null; // 用於跟蹤前一筆訂單編號
-            
-            // 在這裡遍歷資料庫中的每一筆訂單資料，填充到表格中
-            while($row = $result->fetch_assoc()) {
-                // 如果訂單編號不同於前一筆，則顯示該訂單的訂單資訊
-                if ($row["Purchase_OrderID"] != $previousOrderID) {
-
-                    
-                    
-                echo "<tr>";
-                echo "<td>" . $row["Date"] . "</td>"; // 訂購日期
-                echo "<td>" . $row["Purchase_OrderID"] . "</td>"; // 訂單編號
-                // echo "<td>". $row["Purchase_Price"] ."</td>"; // 暫時以示範代碼取代
-                echo "<td>" . $row["Status"] . "</td>"; // 暫時以示範代碼取代
-                echo "<td>";
-                echo "<input type='text' class='transfer-input' value='" . $row["Transfer"] . "'>";
-                echo "<button class='save-btn' data-order-id='" . $row["Purchase_OrderID"] . "'>儲存</button>";
-                echo "</td>";
-                echo '<td><button class="toggle-btn">展開/收起</button></td>';
-               
-                echo "</tr>";
-            }
-            
-            $previousOrderID = $row["Purchase_OrderID"]; // 更新前一筆訂單編號
-        }
+                // 只找符合目前已登入的帳戶資訊的資料
+                $currentAccount = $_SESSION['account'];
+                $sql = "SELECT Product_ID, ProductName, Purchase_OrderID, Purchase_Quantity, Purchase_Price, Status, Transfer, Date 
+                FROM purchase_order WHERE Account = '$currentAccount'";
+                $result = $conn->query($sql);
             ?>
-                       
-                        </tbody>
-                    </table>
-                </div>
+
+            <h1>我的訂單</h1>
+            <div >
+                <?php while ($row = $result->fetch_assoc()) : ?>
+                    <?php if ($row["Purchase_OrderID"] != $previousOrderID) : ?>
+                        <div class="card mt-2"style="margin: 5px;">
+                            <div class="order-card" data-order-id="<?= $row["Purchase_OrderID"] ?>">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="card-body col-md-2 d-flex justify-content-center align-items-center"><?= $row["Date"] ?></div>
+                                        <div class="card-body col-md-1 d-flex justify-content-center align-items-center"><?= $row["Purchase_OrderID"] ?></div>
+                                        <div class="card-body col-md-2 d-flex justify-content-center align-items-center">
+                                            <input type="text" class="form-control transfer-input" value="<?= $row["Transfer"] ?>" placeholder="轉帳後五碼">
+                                        </div>
+
+                                        <div class="card-body col-md-1 d-flex justify-content-center align-items-center">
+                                            <button class="btn btn-warning save-btn">儲存</button>
+                                        </div>
+                                        <div class="card-body col-md-1 d-flex justify-content-center align-items-center"><?= $row["Status"] ?></div>
+                                        <div class="card-body col-md-1 d-flex justify-content-center align-items-center">
+                                            <button class="btn btn-warning" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?= $row["Purchase_OrderID"] ?>" aria-expanded="false" aria-controls="collapse<?= $row["Purchase_OrderID"] ?>">展開</button>
+                                        </div>
+                                    </div>
+                                    <div class="collapse" id="collapse<?= $row["Purchase_OrderID"] ?>">
+                                        <div class="card card-body" style="margin: 10px;">
+                                            <table>
+                                                <thead>
+                                                <tr>
+                                                    <th>購買商品</th>
+                                                    <th>數量</th>
+                                                    <th>價格</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php
+                                                // Query the database and insert subtable data
+                                                $order_id = $row["Purchase_OrderID"];
+                                                $subSql = "SELECT ProductName, Purchase_Quantity, Purchase_Price FROM purchase_order WHERE Purchase_OrderID = ?";
+                                                $subStmt = $conn->prepare($subSql);
+
+                                                if ($subStmt) {
+                                                    $subStmt->bind_param("i", $order_id);
+                                                    $subStmt->execute();
+                                                    $subResult = $subStmt->get_result();
+
+                                                    while ($subRow = $subResult->fetch_assoc()) : ?>
+                                                        <tr>
+                                                            <td><?= $subRow["ProductName"] ?></td>
+                                                            <td><?= $subRow["Purchase_Quantity"] ?></td>
+                                                            <td><?= $subRow["Purchase_Price"] ?></td>
+                                                        </tr>
+                                                    <?php endwhile;
+
+                                                    $subStmt->close();
+                                                }
+                                                ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php $previousOrderID = $row["Purchase_OrderID"]; // Update the previous order ID ?>
+                <?php endwhile; ?>
             </div>
         </div>
+        </div>
+        </div>
+
+
         <?php
         // 關閉資料庫連線
         $conn->close();
         ?>      
           
-            
+
              
-                <footer class="p-4 border-top mt-auto">
-                    <!-- ...existing code... -->
-                    <div class="p-5 text-center_time bg-light mt-4">
-                        <h1>營業資訊</h1>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <h3>光復市場</h3>
-                                <img src="images/Guangfu.jpg" alt="光復市場圖片" class="img-fluid rounded-circle">
-                            </div>
-                            <div class="col-md-3">
-                                <h3>永春市場</h3>
-                                <img src="images/Yongchun.jpg" alt="永春市場圖片" class="img-fluid rounded-circle">
-                            </div>
-                            <div class="col-md-6 mt-4 mt-md-0">
-                                <div class="my-auto">
-                                    <h4 class="text-center_time">營業時間：早上6:00 - 售完為止</h4>
-                                    <br>
-                                    <a href="#" class="btn btn-warning">立即下單</a>
-                                    <a href="#" class="btn btn-outline-warning disabled">提供宅配服務 <img src="images/delivery.png" style="width: 20px;height:20px;"></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-    </div>
-    </div>
-                </footer>
-                <!--底部欄 -->
-    <footer class="p-4 border-top">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <h3>台南下營 鋐茶鵝</h3>
-            </div>
-            <div class="col-md-3">
-            <h5>關於我們</h5>
-                <ul class="list-unstyled">
-                    <li><a href="about_login.php" class="text-decoration">關於鋐茶鵝</a></li>
-                    <li><a href="index_login.php#營業資訊" class="text-decoration">營業資訊</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3">
-                <h5>購物須知</h5>
-                <ul class="list-unstyled">
-                   <!--<li><a href="#" class="text-decoration-none text-warning">付款方式</a></li>
-                    <li><a href="#" class="text-decoration-none text-warning">運送方式</a></li>-->
-                    <li><a href="common_quest_login.php" class="text-decoration">常見問題</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3">
-                <h5>聯絡資訊</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#" class="text-decoration">LINE：官方LINE帳號</a></li>
-                    <li><a href="https://www.facebook.com/profile.php?id=100091698824828&mibextid=ZbWKwL"target="_blank" class="text-decoration">FACEBOOK：台南下營 鋐茶鵝</a></li>
-					<li><a href="mailto:angel19971314@gmail.com" class="text-decoration">E-mail：angel19971314@gmail.com</a></li>
-					<li><span style="color:#FEC107">電話：0966218624</span></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    
-    </footer>
-    <div class="bg-warning text-center">台南下營 鋐茶鵝 © 2023</div>
+                
+
 
               <!-- 登入彈窗區塊，有與JS配合 -->
 <div id="login-modal" class="modal">
@@ -248,11 +211,48 @@ $result = $conn->query($sql);
 <div class="sidebar">
     <a href="https://www.facebook.com/profile.php?id=100091698824828&mibextid=ZbWKwL"target="_blank"><img src="images/facebook.png" style="width: 35px;height:35px;" ></a>
     <a href="https://www.instagram.com/"><img src="images/Instagram.png" style="width: 35px;height:35px;"></a>
-    <a href="https://line.me/zh-hant/"><img src="images/line.png" style="width: 35px;height:35px;"></a>
+    <a href="https://lin.ee/xkDBL1w"><img src="images/line.png" style="width: 35px;height:35px;"></a>
     <a href="#" class="back-to-top"><img src="images/up-arrows.png" style="width: 35px;height:35px;"></a>
 </div>
+                <!--底部欄 -->
+                <footer class="p-4 border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <h3>台南下營 鋐茶鵝</h3>
+            </div>
+            <div class="col-md-3">
+            <h5>關於我們</h5>
+                <ul class="list-unstyled">
+                    <li><a href="about_nologin.php" class="text-decoration">關於鋐茶鵝</a></li>
+                    <li><a href="index_nologin.php#營業資訊" class="text-decoration">營業資訊</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5>購物須知</h5>
+                <ul class="list-unstyled">
+                   <!--<li><a href="#" class="text-decoration-none text-warning">付款方式</a></li>
+                    <li><a href="#" class="text-decoration-none text-warning">運送方式</a></li>-->
+                    <li><a href="common_quest_nologin.php" class="text-decoration">常見問題</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5>聯絡資訊</h5>
+                <ul class="list-unstyled">
+                    <li><a href="https://lin.ee/xkDBL1w" class="text-decoration">LINE：官方LINE帳號</a></li>
+                    <li><a href="https://www.facebook.com/profile.php?id=100091698824828&mibextid=ZbWKwL"target="_blank" class="text-decoration">FACEBOOK：台南下營 鋐茶鵝</a></li>
+					<li><a href="mailto:angel19971314@gmail.com" class="text-decoration">E-mail：angel19971314@gmail.com</a></li>
+					<li><span style="color:#FEC107">電話：0966218624</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </footer>
+    <div class="bg-warning text-center">台南下營 鋐茶鵝 © 2023</div>
 
-    </body>
+</body>
+
+
    
     <script>
     function redirectTorevise() {

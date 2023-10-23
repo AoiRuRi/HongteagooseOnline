@@ -60,6 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $newEmail = isset($_POST['email']) ? mysqli_real_escape_string($mysqli, $_POST['email']) : $email;
     $newPhone = isset($_POST['phone']) ? mysqli_real_escape_string($mysqli, $_POST['phone']) : $phone;
     $newLineID = isset($_POST['line']) ? mysqli_real_escape_string($mysqli, $_POST['line']) : $line_ID;
+    $newlineName = isset($_POST['lineName']) ? mysqli_real_escape_string($mysqli, $_POST['lineName']) : $lineName;
     $newAddress = isset($_POST['address']) ? mysqli_real_escape_string($mysqli, $_POST['address']) : $address;
     $currentPassword = isset($_POST['current_password']) ? mysqli_real_escape_string($mysqli, $_POST['current_password']) : '';
 
@@ -125,28 +126,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // 更新 session 中的 username
             $_SESSION['username'] = $newName;
             echo '<script>';
+            if(empty($newLineID)){
+                $conn = new mysqli("192.168.2.200", "hongteag_linebot", "1234", "hongteag_linebot");
+                // 檢查連線是否成功
+                if ($conn->connect_error) {
+                    die("連線失敗: " . $conn->connect_error);
+                }
+                $sql = "DELETE FROM `linedata` WHERE user_id = '$line_ID'";
+                if ($conn->query($sql) === TRUE) {
+                    
+                    $file="revise";
+                    header("Location: https://hongteagoose.lionfree.net/linebot/automenu.php?ID=$line_ID&file=$file"); // 重定向到automenu.php，將userid傳至自動更新選單    
+                    exit();
+                }
+                
+            }
             if ($line_ID!=$newLineID&&!empty($newLineID)) {
-                if(empty($newLineID)){
-                    $conn = new mysqli("192.168.2.200", "hongteag_linebot", "1234", "hongteag_linebot");
-                    // 檢查連線是否成功
-                    if ($conn->connect_error) {
-                        die("連線失敗: " . $conn->connect_error);
-                    }
+                $conn = new mysqli("192.168.2.200", "hongteag_linebot", "1234", "hongteag_linebot");
+                // 檢查連線是否成功
+                if ($conn->connect_error) {
+                    die("連線失敗: " . $conn->connect_error);
+                }
+                $query = "SELECT * FROM linedata WHERE user_id = '$newLineID'";
+                $result = $conn->query($query);
+                if ($result->num_rows == 0) {
+                    $sql = "INSERT INTO linedata (display_name, user_id) VALUES ('$newlineName', '$newLineID')";
                     if ($conn->query($sql) === TRUE) {
-                    $sql = "DELETE FROM `linedata` WHERE user_id = '$newLineID'";
-                    }
-                }else{
-                    $conn = new mysqli("192.168.2.200", "hongteag_linebot", "1234", "hongteag_linebot");
-                    // 檢查連線是否成功
-                    if ($conn->connect_error) {
-                        die("連線失敗: " . $conn->connect_error);
-                    }
-                    if ($conn->query($sql) === TRUE) {
-                    $sql = "INSERT INTO linedata (display_name, user_id) VALUES ('$lineName', '$line')";
+                        $file="revise";
+                        header("Location: https://hongteagoose.lionfree.net/linebot/automenu.php?ID=$newLineID&file=$file"); // 重定向到automenu.php，將userid傳至自動更新選單    
+                        exit();   
                     }
                 }
-                $file="revise";
-                header("Location: https://hongteagoose.lionfree.net/linebot/automenu.php?ID=$newLineID&file=$file"); // 重定向到automenu.php，將userid傳至自動更新選單    
             }
             echo 'alert("資料修改成功");';
             echo 'window.location.href = "ReviseMember.php";';
@@ -415,7 +425,7 @@ if (isset($_GET['code'])) {
         <a href="https://www.facebook.com/profile.php?id=100091698824828&mibextid=ZbWKwL" target="_blank"><img
                 src="images/facebook.png" style="width: 35px;height:35px;"></a>
         <a href="https://www.instagram.com/"><img src="images/Instagram.png" style="width: 35px;height:35px;"></a>
-        <a href="https://line.me/zh-hant/"><img src="images/line.png" style="width: 35px;height:35px;"></a>
+        <a href="https://lin.ee/xkDBL1w"><img src="images/line.png" style="width: 35px;height:35px;"></a>
         <a href="#" class="back-to-top"><img src="images/up-arrows.png" style="width: 35px;height:35px;"></a>
     </div>
 
@@ -444,7 +454,7 @@ if (isset($_GET['code'])) {
             <div class="col-md-3">
                 <h5>聯絡資訊</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-decoration">LINE：官方LINE帳號</a></li>
+                    <li><a href="https://lin.ee/xkDBL1w" class="text-decoration">LINE：官方LINE帳號</a></li>
                     <li><a href="https://www.facebook.com/profile.php?id=100091698824828&mibextid=ZbWKwL"target="_blank" class="text-decoration">FACEBOOK：台南下營 鋐茶鵝</a></li>
 					<li><a href="mailto:angel19971314@gmail.com" class="text-decoration">E-mail：angel19971314@gmail.com</a></li>
 					<li><span style="color:#FEC107">電話：0966218624</span></li>

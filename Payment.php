@@ -74,14 +74,15 @@ if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) {
 // 查询购物车商品对应的产品名称
 
  // 設定資料庫連線參數
-$host = '192.168.2.200'; // 或 '127.0.0.1'
-$user = 'hongteag_goose'; // 使用者帳號
-$password = 'ab7777xy'; // 使用者密碼
-$dbname = 'hongteag_goose'; // 資料庫名稱
+ $host = '192.168.2.200';
+ $user = 'hongteag_goose';
+ $password = 'ab7777xy';
+ $dbname = 'hongteag_goose';
 
  // 建立資料庫連線
  $conn = new mysqli($host, $user, $password, $dbname);
  $conn->set_charset("utf8");
+
  // 檢查連線是否成功
  if ($conn->connect_error) {
      die("連線失敗: " . $conn->connect_error);
@@ -223,7 +224,7 @@ $conn->close();
 <div class="sidebar">
     <a href="https://www.facebook.com/profile.php?id=100091698824828&mibextid=ZbWKwL"target="_blank"><img src="images/facebook.png" style="width: 35px;height:35px;" ></a>
     <a href="https://www.instagram.com/"><img src="images/Instagram.png" style="width: 35px;height:35px;"></a>
-    <a href="https://line.me/zh-hant/"><img src="images/line.png" style="width: 35px;height:35px;"></a>
+    <a href="https://lin.ee/xkDBL1w"><img src="images/line.png" style="width: 35px;height:35px;"></a>
     <a href="#" class="back-to-top"><img src="images/up-arrows.png" style="width: 35px;height:35px;"></a>
 </div>
 
@@ -252,7 +253,7 @@ $conn->close();
             <div class="col-md-3">
                 <h5>聯絡資訊</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-decoration">LINE：官方LINE帳號</a></li>
+                    <li><a href="https://lin.ee/xkDBL1w" class="text-decoration">LINE：官方LINE帳號</a></li>
                     <li><a href="https://www.facebook.com/profile.php?id=100091698824828&mibextid=ZbWKwL"target="_blank" class="text-decoration">FACEBOOK：台南下營 鋐茶鵝</a></li>
 					<li><a href="mailto:angel19971314@gmail.com" class="text-decoration">E-mail：angel19971314@gmail.com</a></li>
 					<li><span style="color:#FEC107">電話：0966218624</span></li>

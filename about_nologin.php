@@ -120,18 +120,26 @@ if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) {
 </div>
 
 <div id="page" class="container">
-	<div id="content"><!-- 內容區域 -->
-		<div class="title"><!-- 標題區域 -->
-			<h2><span style="color:#000080">關於鋐茶鵝</span></h2><br>
-		</div>
-		<p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&ensp;原本從事中餐廳副主廚的老闆，對於中式菜餚有著無盡的熱情和創造力，也有著創業的夢想，
-			希望能讓更多人吃到親手製作的菜餚，同時也能面對面服務客人。某次因緣際會參觀養鵝場，發現可以將新鮮的鵝肉烹製成美味的燻茶鵝，便開始了自己的創業計劃。
-			結合過去的餐飲製作經驗，從研究調製香料到火侯的控制，都經過不斷的努力嘗試與改良，終於製做出美味的燻茶鵝，再加上與優良養鵝場合作，使用新鮮、優質的鵝肉，
-			讓消費者在品嚐美食的同時，更能夠吃得安心、健康。<br><br>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&ensp;本店嚴選飼養90至100天的鵝，每日新鮮現宰製作，經人工除毛、清洗、川燙等步驟後，再加入蜂蜜、特製香料灌注在鵝肉中，
-			並使用特級紅糖煙燻，讓鵝肉表皮呈現茶褐色，入口鮮嫩肥美，甘甜不膩口，歡迎您來品嚐。</span></p><br>
-	</div>
-	<div id="sidebar" class="image image-full"><img src="images/goosemeat.jpg"></a></div><!--文字介紹右邊的圖片-->
+        <div class="row">
+            <div class="col-lg-6 px-3"><!-- 內容區域 -->
+                <div class="title"><!-- 標題區域 -->
+                    <h2><span style="color:#000080">關於鋐茶鵝</span></h2><br>
+                </div>
+                <p><span style="font-size:18px">在餐飲業服務多年的一位廚師，對於中式菜餚有著無盡的熱情和創造力，也有著創業的夢想，
+                    希望能讓更多人吃到親手製作的菜餚，同時也能面對面服務客人。<br><br>
+                    某次因緣際會參觀養鵝場，喚醒了他對家族特製茶鵝配方的記憶。
+                    這個茶鵝配方帶著香甜和煙燻香味的鵝肉，曾在他的童年時代留下了深刻的印象。為了還原這份美味，結合了他過去在餐飲製作方面的經驗，投入了大量的時間和精力進行研究和實驗。
+                    從研究調製香料到火侯的控制，都經過不斷的努力嘗試與改良，終於製作出美味的燻茶鵝，再加上與優良養鵝場合作，使用新鮮、優質的鵝肉，
+                    讓消費者在品嚐美食的同時，更能夠吃得安心、健康。
+                    <br><br>
+                    本店嚴選飼養90至100天的鵝，每日新鮮現宰製作，經人工除毛、清洗、川燙等步驟後，再加入蜂蜜、特製香料灌注在鵝肉中，
+                    並使用特級紅糖煙燻，讓鵝肉表皮呈現茶褐色，入口鮮嫩肥美，甘甜不膩口，歡迎您來品嚐。</span></p><br>
+            </div>
+            
+            <div class="col-lg-6 d-flex align-items-center"">
+                <img src="images/goosemeat.jpg" class="img-fluid">
+            </div><!-- 文字介紹右邊的圖片 -->
+        </div>  
 </div>
 
 <!-- 三大特點區塊 -->
@@ -231,7 +239,7 @@ if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) {
 <div class="sidebar">
     <a href="https://www.facebook.com/profile.php?id=100091698824828&mibextid=ZbWKwL"target="_blank"><img src="images/facebook.png" style="width: 35px;height:35px;" ></a>
     <a href="https://www.instagram.com/"><img src="images/Instagram.png" style="width: 35px;height:35px;"></a>
-    <a href="https://line.me/zh-hant/"><img src="images/line.png" style="width: 35px;height:35px;"></a>
+    <a href="https://lin.ee/xkDBL1w"><img src="images/line.png" style="width: 35px;height:35px;"></a>
     <a href="#" class="back-to-top"><img src="images/up-arrows.png" style="width: 35px;height:35px;"></a>
 </div>
 
@@ -265,7 +273,7 @@ if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) {
             <div class="col-md-3">
                 <h5>聯絡資訊</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-decoration">LINE：官方LINE帳號</a></li>
+                    <li><a href="https://lin.ee/xkDBL1w" class="text-decoration">LINE：官方LINE帳號</a></li>
                     <li><a href="https://www.facebook.com/profile.php?id=100091698824828&mibextid=ZbWKwL"target="_blank" class="text-decoration">FACEBOOK：台南下營 鋐茶鵝</a></li>
 					<li><a href="mailto:angel19971314@gmail.com" class="text-decoration">E-mail：angel19971314@gmail.com</a></li>
 					<li><span style="color:#FEC107">電話：0966218624</span></li>

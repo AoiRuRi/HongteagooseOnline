@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>   
 <?php session_start(); 
 // 檢查使用者是否已登入
 if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) {
@@ -24,7 +24,8 @@ if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) {
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </head>
 <body>
 	 <!--navbar區塊-->
@@ -55,6 +56,7 @@ if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) {
             </div>
         </div>
     </nav>
+		
 		
 		<!-- 登入彈窗區塊，有與JS配合 -->
  <div id="login-modal" class="modal">
@@ -104,224 +106,245 @@ if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) {
 </div>
 			<main class="main-content">
 <div id="page" class="container"> 	
-				<div class="fullwidth-block inner-content">
+				<div class="fullwidth-block inner-content ">
 						<div class="fullwidth-content">
 							<h2 class="section-title"><i class="icon-calendar-lg"></i>常見問題&nbsp; Q&A</h2>
 							<div class="quest-btn">
 								<h3 class="section-second-title">訂購及出貨</h3>
 							</div>
-							<div class="accordion">
-								<div class="accordion-toggle">
-									<h3>Q：購物流程</h3>
-									<span class="date"><i class="fa-solid fa-calendar-days fa-xs"></i> 2023.06.01</span>
-								</div>
-								<div class="accordion-content">
-									<p>A：註冊/登入會員→將商品加入購物車→確認訂單內容及收貨人資訊→結帳並匯款→寄出宅
-										配商品→收到/確認商品
-									 </p>
-								</div>
-							</div>
-							<div class="accordion">
-								<div class="accordion-toggle">
-									<h3>Q：請問有哪些運送方式？</h3>
-									 <span class="date"><i class="fa-solid fa-calendar-days fa-xs"></i> 2023.06.01</span>
-								</div>
-								<div class="accordion-content">
-									<p>A：黑貓宅急便冷凍宅配。為保商品品質，離島區域恕不寄送，請見諒!</p>
-								</div>
-							</div>
-							<div class="accordion">
-								<div class="accordion-toggle">
-									<h3>Q：請問運費如何計算？</h3>
-									<span class="date"><i class="fa-solid fa-calendar-days fa-xs"></i> 2023.06.01</span>
-								</div>
-								<div class="accordion-content">
-									<!-- 運費表格 -->
-									<div class="table-wrapper">
-										<table class="fee-table ">
-											<thead>
-												<tr>
-													<th>包裝尺寸</th>
-													<th>本島寄件</th>
-													<th>運費價格</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td data-title="包裝尺寸">60公分(cm)以下</td>
-													<td data-title="本島寄件">本島互寄</td>
-													<td data-title="運費價格">160元</td>
-												</tr>
-												<tr >
-													<td data-title="包裝尺寸">60～90公分(cm)</td>
-													<td data-title="本島寄件">本島互寄</td>
-													<td data-title="運費價格">225元</td>
-												</tr>
-												<tr>
-													<td data-title="包裝尺寸">91～120公分(cm)</td>
-													<td data-title="本島寄件">本島互寄</td>
-													<td data-title="運費價格">290元</td>
-												</tr>
-											</tbody>
-										</table>
+							<div class="accordion" id="faqAccordion">
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="q1">
+										<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q1a" aria-expanded="false" aria-controls="q1a">
+											購物流程
+										</button>
+									</h2>
+									<div id="q1a" class="accordion-collapse collapse" aria-labelledby="q1" data-bs-parent="#faqAccordion">
+										<div class="accordion-body">
+											註冊/登入會員→將商品加入購物車→確認訂單內容及收貨人資訊→結帳並匯款→寄出宅配商品→收到/確認商品
+										</div>
 									</div>
 									
-									<h5>消費滿 <span style="color: red;">$2000</span> 即可享免運費。</h5>
+									
+								</div>
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="q2">
+										<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q2a" aria-expanded="false" aria-controls="q2a">
+											請問有哪些運送方式？
+										</button>
+									</h2>
+									<div id="q2a" class="accordion-collapse collapse" aria-labelledby="q2" data-bs-parent="#faqAccordion">
+										<div class="accordion-body">
+											黑貓宅急便冷凍宅配。為保商品品質，離島區域恕不寄送，請見諒！
+										</div>
+									</div>
+								</div>
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="q3">
+										<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q3a" aria-expanded="false" aria-controls="q3a">
+											請問運費如何計算？
+										</button>
+									</h2>
+									<div id="q3a" class="accordion-collapse collapse" aria-labelledby="q3" data-bs-parent="#faqAccordion">
+										<div class="accordion-body">
+											<!-- 運費表格 -->
+											<h5 class="text-center">消費滿 <span style="color: red;">$2000</span> 即可享免運費。</h5>
+											<br>
+											<div class="table-responsive">
+												<table class="table table-bordered fee-table text-center">
+													<thead class="table table-warning">
+														<tr>
+															<th>寄件種類</th>
+															<th>包裝尺寸</th>
+															<th>運費價格</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td data-title="本島寄件">本島互寄</td>
+															<td data-title="包裝尺寸">60公分(cm)以下</td>
+															<td data-title="運費價格">160元</td>
+														</tr>
+														<tr>
+															<td data-title="本島寄件">本島互寄</td>
+															<td data-title="包裝尺寸">60～90公分(cm)</td>
+															<td data-title="運費價格">225元</td>
+														</tr>
+														<tr>
+															<td data-title="本島寄件">本島互寄</td>
+															<td data-title="包裝尺寸">91～120公分(cm)</td>
+															<td data-title="運費價格">290元</td>
+														</tr>
+													</tbody>												  
+												</table>
+												
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="q4">
+										<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q4a" aria-expanded="false" aria-controls="q4a">
+											請問有哪些付款方式？
+										</button>
+									</h2>
+									<div id="q4a" class="accordion-collapse collapse" aria-labelledby="q4" data-bs-parent="#faqAccordion">
+										<div class="accordion-body">
+											目前僅有ATM匯款方式，請加入Line ID：@XXX索取匯款帳號，並請於轉帳後傳訊息告知訂單編號及帳號末五碼，亦可翻拍轉帳收據使用LINE傳送即可，謝謝！
+										</div>
+									</div>
+								</div>
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="q5">
+										<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q5a" aria-expanded="false" aria-controls="q5a">
+											如何更改訂購內容及送貨地址？
+										</button>
+									</h2>
+									<div id="q5a" class="accordion-collapse collapse" aria-labelledby="q5" data-bs-parent="#faqAccordion">
+										<div class="accordion-body">
+											訂單送出後即無法修改訂單內容，如需修改，您可由「會員登入」登入帳號，取消訂單後再重新下單。
+										</div>
+									</div>
+								</div>
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="q6">
+										<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q6a" aria-expanded="false" aria-controls="q6a">
+											請問如何取消訂單？
+										</button>
+									</h2>
+									<div id="q6a" class="accordion-collapse collapse" aria-labelledby="q6" data-bs-parent="#faqAccordion">
+										<div class="accordion-body">
+											訂單尚未進入包裝作業前您可由「會員登入」登入帳號，自行取消訂單。<br><br>
+											※ 訂單取消後即無法復原。<br>
+											※ 若訂單商品已進入包裝作業，請恕無法為您取消訂單。<br>
+											※ 提醒您，若您取消訂單後重新訂購，商品庫存請依當時頁面為主！
+										</div>
+									</div>
+								</div>
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="q7">
+										<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q7a" aria-expanded="false" aria-controls="q7a">
+											請問商品出貨時間?
+										</button>
+									</h2>
+									<div id="q7a" class="accordion-collapse collapse" aria-labelledby="q7" data-bs-parent="#faqAccordion">
+										<div class="accordion-body">
+											每週二~日的下午1點前訂購並匯款完成，商品將於當日寄出，超過下午1點訂購或匯款，則於隔日出貨。<br>
+											<span style="color: red;">每週一公休不出貨</span>，因此星期日下午1點後之訂單，將於星期二寄出。
+										</div>
+									</div>
+								</div>
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="q8">
+										<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q8a" aria-expanded="false" aria-controls="q8a">
+											請問商品出貨後多久可以收到?
+										</button>
+									</h2>
+									<div id="q8a" class="accordion-collapse collapse" aria-labelledby="q8" data-bs-parent="#faqAccordion">
+										<div class="accordion-body">
+											一般隔日即可送達，週六、日出貨之訂單，將於週一送達。實際出貨狀況以宅配公司作業為準，遇重大節日可能配達時間會有延遲，敬請提早訂購。
+										</div>
+									</div>
 								</div>
 							</div>
-							<div class="accordion">
-								<div class="accordion-toggle">
-									<h3>Q：請問有哪些付款方式？</h3>
-									<span class="date"><i class="fa-solid fa-calendar-days fa-xs"></i> 2023.06.01</span>
-								</div>
-								<div class="accordion-content">
-									<p>A：目前僅有ATM匯款方式，請加入Line ID：@XXX索取匯款帳號，並請於轉帳後傳訊息告
-										知訂單編號及帳號末五碼，亦可翻拍轉帳收據使用LINE傳送即可，謝謝！
-									 </p>
-								</div>
+							
+							<div class="quest-btn">
+								<h3 class="section-second-title">商品問題</h3>
 							</div>
-							<div class="accordion">
-								<div class="accordion-toggle">
-									<h3>Q：如何更改訂購內容及送貨地址？</h3>
-									<span class="date"><i class="fa-solid fa-calendar-days fa-xs"></i> 2023.06.01</span>
+							<div class="accordion" id="productAccordion">
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="q9">
+										<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q9a" aria-expanded="false" aria-controls="q9a">
+											請問所有商品均可宅配嗎?
+										</button>
+									</h2>
+									<div id="q9a" class="accordion-collapse collapse" aria-labelledby="q9" data-bs-parent="#productAccordion">
+										<div class="accordion-body">
+											除鹹水鵝之外，其餘商品均可宅配。另「醉鵝」因製作時程較久，若需宅配請提前2天以上訂購。
+										</div>
+									</div>
 								</div>
-								<div class="accordion-content">
-									<p>A：訂單送出後即無法修改訂單內容，如需修改，您可由「會員登入」登入帳號，取消訂單後再重新下單。
-									 </p>
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="q10">
+										<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q10a" aria-expanded="false" aria-controls="q10a">
+											請問商品可以保存多久?
+										</button>
+									</h2>
+									<div id="q10a" class="accordion-collapse collapse" aria-labelledby="q10" data-bs-parent="#productAccordion">
+										<div class="accordion-body">
+											茶鵝1天內食用完畢，真空包冷凍商品3天內食用完畢。為保產品新鮮美味，拆封後請儘速食用完畢。
+										</div>
+									</div>
 								</div>
-							</div>
-							<div class="accordion">
-								<div class="accordion-toggle">
-									<h3>Q：請問如何取消訂單？</h3>
-									<span class="date"><i class="fa-solid fa-calendar-days fa-xs"></i> 2023.06.01</span>
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="q11">
+										<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q11a" aria-expanded="false" aria-controls="q11a">
+											請問商品要如何食用？
+										</button>
+									</h2>
+									<div id="q11a" class="accordion-collapse collapse" aria-labelledby="q11" data-bs-parent="#productAccordion">
+										<div class="accordion-body">
+											建議食用前1天連同包裝先冷藏退冰，並於食用前30分鐘室溫退冰。切勿使用微波爐或電鍋加熱，會導致肉汁流失而口感變差。
+										</div>
+									</div>
 								</div>
-								<div class="accordion-content">
-									 <p>A：訂單尚未進入包裝作業前您可由「會員登入」登入帳號，自行取消訂單。 <br>
-										&emsp;※ 訂單取消後即無法復原。 <br>
-										&emsp;※ 若訂單商品已進入包裝作業，請恕無法為您取消訂單。 <br>
-										&emsp;※ 提醒您，若您取消訂單後重新訂購，商品庫存請依當時頁面為主！ <br>
-										</p>
-								</div>
-							</div>
-							<div class="accordion">
-								<div class="accordion-toggle">
-									<h3>Q：請問商品出貨時間?</h3>
-									<span class="date"><i class="fa-solid fa-calendar-days fa-xs"></i> 2023.06.01</span>
-								</div>
-								<div class="accordion-content">
-									 <p>A：每週二~日的下午1點前訂購並匯款完成，商品將於當日寄出，超過下午1點訂購或匯款，則於隔日出貨。<br> 
-										&ensp;&ensp;&ensp;<span style="color: red;">每週一公休不出貨</span>，因此星期日下午1點後之訂單，將於星期二寄出。
-									 </p>
-								</div>
-							</div>
-							<div class="accordion">
-								<div class="accordion-toggle">
-									<h3>Q：請問商品出貨後多久可以收到?</h3>
-									<span class="date"><i class="fa-solid fa-calendar-days fa-xs"></i> 2023.06.01</span>
-								</div>
-								<div class="accordion-content">
-									 <p>
-										A：一般隔日即可送達，週六、日出貨之訂單，將於週一送達。實際出貨狀況以宅配公司作
-  										 業為準，遇重大節日可能配達時間會有延遲，敬請提早訂購。
-									 </p>
-								</div>
-							</div>
-						</div>
-						<div class="quest-btn">
-							<h3 class="section-second-title">商品問題</h3>
-						</div>
-							<div class="accordion">
-								<div class="accordion-toggle">
-									<h3>Q：請問所有商品均可宅配嗎?</h3>
-									<span class="date"><i class="fa-solid fa-calendar-days fa-xs"></i> 2023.06.01</span>
-								</div>
-								<div class="accordion-content">
-									 <p>A：除鹹水鵝之外，其餘商品均可宅配。另「醉鵝」因製作時程較久，若需宅配請提前2天以上訂購。
-									 </p>
-								</div>
-							</div>
-							<div class="accordion">
-								<div class="accordion-toggle">
-									<h3>Q：請問商品可以保存多久?</h3>
-									<span class="date"><i class="fa-solid fa-calendar-days fa-xs"></i> 2023.06.01</span>
-								</div>
-								<div class="accordion-content">
-									<p>A：茶鵝1天內食用完畢，真空包冷凍商品3天內食用完畢。為保產品新鮮美味，拆封後請儘速食用完畢。
-									 </p>
-								</div>
-							</div>
-							<div class="accordion">
-								<div class="accordion-toggle">
-									<h3>Q：請問商品要如何食用？</h3>
-									<span class="date"><i class="fa-solid fa-calendar-days fa-xs"></i> 2023.06.01</span>
-								</div>
-								<div class="accordion-content">
-									<p>A：建議食用前1天連同包裝先冷藏退冰，並於食用前30分鐘室溫退冰。切勿使用微波爐或電鍋加熱，會導致肉汁流失而口感變差。
-									 </p>
-								</div>
-							</div>
-							<div class="accordion">
-								<div class="accordion-toggle">
-									<h3>Q：請問可以退換貨嗎？</h3>
-									<span class="date"><i class="fa-solid fa-calendar-days fa-xs"></i> 2023.06.01</span>
-								</div>
-								<div class="accordion-content">
-									 <p>A：因商品屬於生鮮產品，保存期限較短，並不適用消費者保護法第19條，亦即不享有7天鑑賞期，
-										故商品寄出後不提供退換貨服務，請訂購前謹慎考慮。
-									 </p>
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="q12">
+										<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q12a" aria-expanded="false" aria-controls="q12a">
+											請問可以退換貨嗎？
+										</button>
+									</h2>
+									<div id="q12a" class="accordion-collapse collapse" aria-labelledby="q12" data-bs-parent="#productAccordion">
+										<div class="accordion-body">
+											因商品屬於生鮮產品，保存期限較短，並不適用消費者保護法第19條，亦即不享有7天鑑賞期，故商品寄出後不提供退換貨服務，請訂購前謹慎考慮。
+										</div>
+									</div>
 								</div>
 							</div>
 							<div class="quest-btn">
 								<h3 class="section-second-title">關於實體店</h3>
 							</div>
-							<div class="accordion">
-								<div class="accordion-toggle">
-									<h3>Q：請問實體店攤位在哪？</h3>
-									<span class="date"><i class="fa-solid fa-calendar-days fa-xs"></i> 2023.06.01</span>
+							<div class="accordion" id="conAccordion">
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="q13">
+										<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q13a" aria-expanded="false" aria-controls="q13a">
+											請問實體店攤位在哪？
+										</button>
+									</h2>
+									<div id="q13a" class="accordion-collapse collapse" aria-labelledby="q13" data-bs-parent="#conAccordion">
+										<div class="accordion-body">
+											台北市：光復市場、永春市場。<br>
+											新北市：樹林市場、福和市場。 <br>
+											<br>
+											請見Line官方帳號公告之當日設攤地點。
+										</div>
+									</div>
 								</div>
-								<div class="accordion-content">
-									<p>A：台北市：光復市場、永春市場。<br>
-									 &ensp;&emsp;新北市：樹林市場、中和福和市場。 <br>
-									 &ensp;&emsp;請見Line官方帳號公告之今日設攤地點。</p>
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="q14">
+										<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q14a" aria-expanded="false" aria-controls="q14a">
+											請問實體店舖營業時間？
+										</button>
+									</h2>
+									<div id="q14a" class="accordion-collapse collapse" aria-labelledby="q14" data-bs-parent="#conAccordion">
+										<div class="accordion-body">
+											每週二～日，中午12點前，當日現貨若售完將提前收攤。
+										</div>
+									</div>
 								</div>
 							</div>
-							<div class="accordion">
-								<div class="accordion-toggle">
-									<h3>Q：請問實體店舖營業時間？</h3>
-									<span class="date"><i class="fa-solid fa-calendar-days fa-xs"></i> 2023.06.01</span>
-								</div>
-								<div class="accordion-content">
-									<p>A：每週二～日，中午12點前，當日現貨若售完將提前收攤。</p>
-								</div>
-							</div>
-						<div class="quest-btn">
-							<h2 class="section-second-title">追蹤我們</h2>
-						</div>
-						<div class="link">
-							<div class="left-picture">
-								<h3>台南下營 &nbsp;鋐茶鵝</h3>
-								<a href="https://www.facebook.com/profile.php?id=100091698824828&mibextid=ZbWKwL"target="_blank"><i class="fa-brands fa-square-facebook fa-9x" style="color: #4267B2;"></i></a>
-							</div>
-							<div class="right-picture">
-								<h3> 官方Line帳號  </h3>
-								<!-- 官方ＱＲ code 尚未補上 用icon暫替 -->
-								<!-- <a href="#"><i class="fa-brands fa-line fa-9x" style="color: #1fd656;"></i></a> -->
-								<a href="#"><i class="fa-sharp fa-solid fa-qrcode fa-9x" style="color:#555555"></i></a>
-
-							</div>
-						</div>
+							
+						
 					</div>
+					<style>
+						
+					</style>
+					
+					
 				</div> <!-- .fullwidth-block -->
-			</div>
+</div>
 			</main> <!-- .main-content -->
 
-<!--側邊攔-->
-<div class="sidebar">
-    <a href="https://www.facebook.com/profile.php?id=100091698824828&mibextid=ZbWKwL"target="_blank"><img src="images/facebook.png" style="width: 35px;height:35px;" ></a>
-    <a href="https://www.instagram.com/"><img src="images/Instagram.png" style="width: 35px;height:35px;"></a>
-    <a href="https://line.me/zh-hant/"><img src="images/line.png" style="width: 35px;height:35px;"></a>
-    <a href="#" class="back-to-top"><img src="images/up-arrows.png" style="width: 35px;height:35px;"></a>
-</div>
 <!--底部欄 -->
 <footer class="p-4 border-top">
     <div class="container">
@@ -347,7 +370,7 @@ if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) {
             <div class="col-md-3">
                 <h5>聯絡資訊</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-decoration">LINE：官方LINE帳號</a></li>
+                    <li><a href="https://lin.ee/xkDBL1w" class="text-decoration">LINE：官方LINE帳號</a></li>
                     <li><a href="https://www.facebook.com/profile.php?id=100091698824828&mibextid=ZbWKwL"target="_blank" class="text-decoration">FACEBOOK：台南下營 鋐茶鵝</a></li>
 					<li><a href="mailto:angel19971314@gmail.com" class="text-decoration">E-mail：angel19971314@gmail.com</a></li>
 					<li><span style="color:#FEC107">電話：0966218624</span></li>
@@ -359,7 +382,15 @@ if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) {
     <div class="bg-warning text-center">台南下營 鋐茶鵝 © 2023</div>
 </body>
 
+</body>
 
+<!--側邊攔-->
+<div class="sidebar">
+    <a href="https://www.facebook.com/profile.php?id=100091698824828&mibextid=ZbWKwL"target="_blank"><img src="images/facebook.png" style="width: 35px;height:35px;" ></a>
+    <a href="https://www.instagram.com/"><img src="images/Instagram.png" style="width: 35px;height:35px;"></a>
+    <a href="https://lin.ee/xkDBL1w"><img src="images/line.png" style="width: 35px;height:35px;"></a>
+    <a href="#" class="back-to-top"><img src="images/up-arrows.png" style="width: 35px;height:35px;"></a>
+</div>
 
 
     <script>

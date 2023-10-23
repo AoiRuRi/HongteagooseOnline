@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="zh-Hant-Tw">
 <?php session_start(); 
 // 檢查使用者是否已登入
 if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) {
@@ -9,7 +10,6 @@ if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) {
     exit(); // 確保腳本結束執行，避免後續代碼執行
 }
 ?>  
-<html lang="zh-Hant-Tw">
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,15 +27,14 @@ if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) {
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/css/bootstrap.min.css">
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js">
-</script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 	</head>
 
 
 <body>
 		
-	  <!--navbar區塊-->
-      <nav>
+	<!--navbar區塊-->
+    <nav>
         <div class="navbar navbar-expand-lg p-3" style="background-color: #fede00">
             <div class = "container">
                 <a href="index_login.php"><img style="width: 200px;" src="images/logo.png"></a>
@@ -88,104 +87,103 @@ if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) {
     </div>
 </div>
 
-
-<!--側邊攔-->
-<div class="sidebar">
-    <a href="https://www.facebook.com/profile.php?id=100091698824828&mibextid=ZbWKwL"target="_blank"><img src="images/facebook.png" style="width: 35px;height:35px;" ></a>
-    <a href="https://www.instagram.com/"><img src="images/Instagram.png" style="width: 35px;height:35px;"></a>
-    <a href="https://line.me/zh-hant/"><img src="images/line.png" style="width: 35px;height:35px;"></a>
-    <a href="#" class="back-to-top"><img src="images/up-arrows.png" style="width: 35px;height:35px;"></a>
-</div>
-
 <div id="logo" class="container">
 	<i class="fa-solid fa-house" style="color: #8f8f8f;"></i>&nbsp;<a href="index_login.php">首頁</a> — <a href="contact_login.php">聯絡我們</a>
 </div>
-<div id="page" class="container"> 
-			<main class="main-content">
-				
-				<div class="fullwidth-block content">
-					<div class="container">
-						<h2 class="entry-title">聯絡我們</h2>
 
-						<div class="row contact-info">
-							<div class="col-md-6">
-								<div class="map-container">
-									<div class="map">
-										<div class="map-iframe" ng-show="currentMap === 'guangfu'">
-											<iframe id="guangfu-iframe" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14459.733004300899!2d121.5604944!3d25.0363392!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442abb7dca04e17%3A0x345b3c3b05eac042!2z5YWJ5b6p5biC5aC0!5e0!3m2!1szh-TW!2stw!4v1687073889333!5m2!1szh-TW!2stw"  height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-										</div>
-										<div class="map-iframe" ng-show="currentMap === 'yongchun'">
-											<iframe id="yongchun-iframe" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14458.939604366496!2d121.5775774!3d25.0430691!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442aba18d3f715d%3A0x5e0ee08ff88eadaf!2z5rC45pil5biC5aC0!5e0!3m2!1szh-TW!2stw!4v1687073750580!5m2!1szh-TW!2stw" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-4">
-											<address>
-												<strong>聯絡資訊</strong>
-												<p>手機：0966218624<br>Line ID:@625eoimq</p>
-												<div class="linefb">
-													<img src="images/line.png" alt="line">
-													<img src="images/Facebook_icon.png" alt="fb">
-												</div>
-											</address>
-										</div>
-										<div class="col-md-8">
-											<div class="contact">
-												<strong>營業地點</strong>
-												<p>
-													<span class="market" ng-click="toggleMap('guangfu')">光復市場：台北市信義區仁愛路四段496巷19號</span><br>
-													<span class="market" ng-click="toggleMap('yongchun')">永春市場：台北市信義區松山路294號</span><br>
-													<span class="market" ng-click="toggleMap('yongchun')">樹林市場：新北市樹林區博愛街10號</span><br>
-													<span class="market" ng-click="toggleMap('yongchun')">福和市場：新北市中和區中山路二段3巷22弄42號</span>
-												</p>
-												  
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-5 col-md-offset-1">
-								<form action="#" method="post" class="contact-form" id="cform">
-									<div class="form-group row">
-										<label for="inputEmail3" class="col-sm-2 col-form-label">姓名：</label>
-										<div class="col-sm-10">
-										  <input type="name" name="name" class="form-control" id="inputEmail3" placeholder="">
-										</div>
-									</div>
+<div id="page" class="container">
+	<h2>聯絡我們</h2>
+</div>
 
-									<div class="form-group row">
-										<label for="inputEmail3" class="col-sm-2 col-form-label">電話：</label>
-										<div class="col-sm-10">
-										  <input type="phone_number" name="phone" class="form-control" id="inputEmail3" placeholder="">
-										</div>
-									</div>
 
-									<div class="form-group row">
-										<label for="inputEmail3" class="col-sm-2 col-form-label">信箱：</label>
-										<div class="col-sm-10">
-										  <input type="name" name="mail" class="form-control" id="inputEmail3" placeholder="">
-										</div>
-									</div>
 
-									<div class="form-group row">
-										<label for="inputEmail3" class="col-sm-2 col-form-label">意見：</label>
-										<div class="col-sm-10">
-											<textarea name="message" id="message" placeholder="請輸入內容"></textarea>
-										</div>
-									</div>
-									<div class="text-right">
-										<button class="btn btn-warning" type="submit" >送出</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			</main> 
-			<!-- .main-content -->
- <!--底部欄 -->
- <footer class="p-4 border-top">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <ul class="nav nav-tabs ">
+                <li class="nav-item">
+                    <a class="nav-link active" id="guangfu-tab" data-toggle="tab" href="#guangfu-map">光復市場</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="yongchun-tab" data-toggle="tab" href="#yongchun-map">永春市場</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="shulin-tab" data-toggle="tab" href="#shulin-map">樹林市場</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="fuhe-tab" data-toggle="tab" href="#fuhe-map">福和市場</a>
+                </li>
+            </ul>
+            <div class="tab-content mt-3">
+                <div class="tab-pane fade show active" id="guangfu-map">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14459.733004300899!2d121.5604944!3d25.0363392!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442abb7dca04e17%3A0x345b3c3b05eac042!2zM5YWJ5b6p5biC5aC0!5e0!3m2!1szh-TW!2stw!4v1687073889333!5m2!1szh-TW!2stw" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="yongchun-map">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14458.939604366496!2d121.5775774!3d25.0430691!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442aba18d3f715d%3A0x5e0ee08ff88eadaf!2zM5rC45pil5biC5aC0!5e0!3m2!1szh-TW!2stw!4v1687073750580!5m2!1szh-TW!2stw" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="shulin-map">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3616.2084774884975!2d121.42505837359963!3d24.993031019828237!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34681d774b5abc4d%3A0x1070dec92693e90b!2zM5qi55p6X5biC5aC0!5e0!3m2!1szh-TW!2stw!4v1689430198959!5m2!1szh-TW!2stw" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="fuhe-map">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.88689901743!2d121.50302627359984!3d25.003958818509666!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a9c5f27904f1%3A0x1f66a23594a2506f!2zM56aP5ZKM5biC5aC0KOeyvuS4gOmkiui6q-mjn-WTgSk!5e0!3m2!1szh-TW!2stw!4v1689430527599!5m2!1szh-TW!2stw" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="d-flex flex-column justify-content-center" style="height: calc(86%);">
+                <form action="#" class="contact-form" id="cform">
+                    <div class="form-group row">
+                        <label for="inputName" class="col-sm-2 col-form-label">姓名：</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="name" class="form-control" id="inputName" placeholder="">
+                        </div>
+                    </div>
+        
+                    <div class="form-group row">
+                        <label for="inputPhone" class="col-sm-2 col-form-label">電話：</label>
+                        <div class="col-sm-10">
+                            <input type="tel" name="phone" class="form-control" id="inputPhone" placeholder="">
+                        </div>
+                    </div>
+        
+                    <div class="form-group row">
+                        <label for="inputEmail" class="col-sm-2 col-form-label">信箱：</label>
+                        <div class="col-sm-10">
+                            <input type="email" name="mail" class="form-control" id="inputEmail" placeholder="">
+                        </div>
+                    </div>
+        
+                    <div class="form-group row">
+                        <label for="inputMessage" class="col-sm-2 col-form-label">意見：</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" name="message" id="inputMessage" rows="4" placeholder="請輸入內容"></textarea>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2 mt-3">
+                        <button class="btn btn-warning" type="submit">送出</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+	</div>
+</div>
+
+
+<!--底部欄 -->
+<footer class="p-4 border-top">
     <div class="container">
         <div class="row">
             <div class="col-md-3">
@@ -209,7 +207,7 @@ if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) {
             <div class="col-md-3">
                 <h5>聯絡資訊</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-decoration">LINE：官方LINE帳號</a></li>
+                    <li><a href="https://lin.ee/xkDBL1w" class="text-decoration">LINE：官方LINE帳號</a></li>
                     <li><a href="https://www.facebook.com/profile.php?id=100091698824828&mibextid=ZbWKwL"target="_blank" class="text-decoration">FACEBOOK：台南下營 鋐茶鵝</a></li>
 					<li><a href="mailto:angel19971314@gmail.com" class="text-decoration">E-mail：angel19971314@gmail.com</a></li>
 					<li><span style="color:#FEC107">電話：0966218624</span></li>
@@ -220,7 +218,13 @@ if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) {
     </footer>
     <div class="bg-warning text-center">台南下營 鋐茶鵝 © 2023</div>
 
-
+<!--側邊攔-->
+<div class="sidebar">
+    <a href="https://www.facebook.com/profile.php?id=100091698824828&mibextid=ZbWKwL"target="_blank"><img src="images/facebook.png" style="width: 35px;height:35px;" ></a>
+    <a href="https://www.instagram.com/"><img src="images/Instagram.png" style="width: 35px;height:35px;"></a>
+    <a href="https://lin.ee/xkDBL1w"><img src="images/line.png" style="width: 35px;height:35px;"></a>
+    <a href="#" class="back-to-top"><img src="images/up-arrows.png" style="width: 35px;height:35px;"></a>
+</div>
 
 
     <script>
@@ -239,6 +243,18 @@ if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) {
             $("html, body").animate({ scrollTop: 0 }, "500");
         });
     });
+
+	// $(document).ready(function() {
+    //         // 隱藏除了 guangfu-iframe 以外的所有 iframe
+    //         $('.map-iframe:not(#guangfu-iframe)').hide();
+
+    //         // 切換地圖 iframe
+    //         $('.market').click(function() {
+    //             var market = $(this).data('market');
+    //             $('.map-iframe').hide(); // 隱藏所有的 iframe
+    //             $('#' + market + '-iframe').show(); // 顯示選定的 iframe
+    //         });
+    //     });
 
 	var app = angular.module('myApp', []);
 
@@ -265,6 +281,12 @@ function redirectTorevise() {
 });
 
     </script>
+	<!-- <script src="JS/jquery-1.11.1.min.js"></script> -->
+	
+	<!-- <script src="http://maps.google.com/maps/api/js?sensor=false&amp;language=en"></script> -->
+	<!-- <script src="JS/plugins.js"></script> -->
+	<!-- <script src="JS/app.js"></script> -->
+	
 <!-- 寄信js -->
 <script type="text/javascript">
    (function(){
@@ -283,6 +305,5 @@ function redirectTorevise() {
     });
 });
 </script>
-	
 </body>
 </html>

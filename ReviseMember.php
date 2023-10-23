@@ -249,7 +249,7 @@ $mysqli->close();
 <div class="sidebar">
     <a href="https://www.facebook.com/profile.php?id=100091698824828&mibextid=ZbWKwL"target="_blank"><img src="images/facebook.png" style="width: 35px;height:35px;" ></a>
     <a href="https://www.instagram.com/"><img src="images/Instagram.png" style="width: 35px;height:35px;"></a>
-    <a href="https://line.me/zh-hant/"><img src="images/line.png" style="width: 35px;height:35px;"></a>
+    <a href="https://lin.ee/xkDBL1w"><img src="images/line.png" style="width: 35px;height:35px;"></a>
     <a href="#" class="back-to-top"><img src="images/up-arrows.png" style="width: 35px;height:35px;"></a>
 </div>
 
@@ -278,7 +278,7 @@ $mysqli->close();
             <div class="col-md-3">
                 <h5>聯絡資訊</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-decoration">LINE：官方LINE帳號</a></li>
+                    <li><a href="https://lin.ee/xkDBL1w" class="text-decoration">LINE：官方LINE帳號</a></li>
                     <li><a href="https://www.facebook.com/profile.php?id=100091698824828&mibextid=ZbWKwL"target="_blank" class="text-decoration">FACEBOOK：台南下營 鋐茶鵝</a></li>
 					<li><a href="mailto:angel19971314@gmail.com" class="text-decoration">E-mail：angel19971314@gmail.com</a></li>
 					<li><span style="color:#FEC107">電話：0966218624</span></li>
@@ -377,63 +377,63 @@ document.addEventListener("DOMContentLoaded", function() {
     
 </body>
 <script>   
-<?php
-// 啟動或恢復現有的 session
-session_start();
+// <?php
+// // 啟動或恢復現有的 session
+// session_start();
 
-// 檢查使用者是否已登入
-if (!isset($_SESSION['isLoggedIn']) || $_SESSION['isLoggedIn'] !== true) {
-    // 如果用戶未登入，將其重定向到登入頁面
-    header("Location: login.php");
-    exit();
-}
+// // 檢查使用者是否已登入
+// if (!isset($_SESSION['isLoggedIn']) || $_SESSION['isLoggedIn'] !== true) {
+//     // 如果用戶未登入，將其重定向到登入頁面
+//     header("Location: login.php");
+//     exit();
+// }
 
-// 獲取使用者ID
-$userID = $_SESSION['userID'];
+// // 獲取使用者ID
+// $userID = $_SESSION['userID'];
 
-// 連接到資料庫（假設您已經設置了資料庫連線）
-$host = 'localhost'; // 或 '127.0.0.1'
-$user = 'root'; // 使用者帳號
-$password = ''; // 使用者密碼
-$dbname = 'your_database'; // 資料庫名稱
+// // 連接到資料庫（假設您已經設置了資料庫連線）
+// $host = 'localhost'; // 或 '127.0.0.1'
+// $user = 'root'; // 使用者帳號
+// $password = ''; // 使用者密碼
+// $dbname = 'your_database'; // 資料庫名稱
 
-// 建立與 MySQL 資料庫的連線
-$mysqli = new mysqli($host, $user, $password, $dbname);
+// // 建立與 MySQL 資料庫的連線
+// $mysqli = new mysqli($host, $user, $password, $dbname);
 
-// 檢查連線是否成功
-if ($mysqli->connect_error) {
-    die('連線失敗: ' . $mysqli->connect_error);
-}
+// // 檢查連線是否成功
+// if ($mysqli->connect_error) {
+//     die('連線失敗: ' . $mysqli->connect_error);
+// }
 
-// 接收來自表單的數據
-$newAccount = $_POST['newAccount'];
-$newName = $_POST['newName'];
-$newEmail = $_POST['newEmail'];
-// 繼續接收其他數據...
+// // 接收來自表單的數據
+// $newAccount = $_POST['newAccount'];
+// $newName = $_POST['newName'];
+// $newEmail = $_POST['newEmail'];
+// // 繼續接收其他數據...
 
-// 創建 UPDATE 語句
-$updateQuery = "UPDATE users SET Account=?, Name=?, Email=? WHERE ID=?";
+// // 創建 UPDATE 語句
+// $updateQuery = "UPDATE users SET Account=?, Name=?, Email=? WHERE ID=?";
 
-$stmt = $mysqli->prepare($updateQuery);
-if ($stmt === false) {
-    die('準備更新語句時發生錯誤: ' . $mysqli->error);
-}
+// $stmt = $mysqli->prepare($updateQuery);
+// if ($stmt === false) {
+//     die('準備更新語句時發生錯誤: ' . $mysqli->error);
+// }
 
-// 綁定參數
-$stmt->bind_param('sssi', $newAccount, $newName, $newEmail, $userID);
+// // 綁定參數
+// $stmt->bind_param('sssi', $newAccount, $newName, $newEmail, $userID);
 
-// 執行更新
-$result = $stmt->execute();
+// // 執行更新
+// $result = $stmt->execute();
 
-if ($result === false) {
-    die('更新數據庫時發生錯誤: ' . $stmt->error);
-}
+// if ($result === false) {
+//     die('更新數據庫時發生錯誤: ' . $stmt->error);
+// }
 
-// 更新成功，可以顯示成功消息
-echo "資料已成功更新！";
+// // 更新成功，可以顯示成功消息
+// echo "資料已成功更新！";
 
-// 關閉資料庫連線
-$mysqli->close();
+// // 關閉資料庫連線
+// $mysqli->close();
 ?>
 function redirectTorevise() {
         window.location.href = "ReviseMember.php";
