@@ -75,6 +75,72 @@ $conn->query($deleteSql);
         // 关闭数据库连接
         $conn->close();
         
+
+
+        // LINE 訂單訊息傳送
+        
+        // 設定資料庫連線參數
+        $host = '192.168.2.200';
+        $user = 'hongteag_goose';
+        $password = 'ab7777xy';
+        $dbname = 'hongteag_goose';
+        $conn = new mysqli($host, $user, $password, $dbname);
+        $conn->set_charset("utf8");
+
+        // 检查连接是否成功
+        if ($conn->connect_error) {
+            die("连接失败: " . $conn->connect_error);
+        }
+        $linesql = "SELECT Line_ID FROM users WHERE Account = '$account'";
+        $result = $conn->query($linesql);
+
+        if ($result) {
+            if ($result->num_rows > 0) {  // 此處使用 $result->num_rows
+                $row = $result->fetch_assoc();  // 此處使用 $result->fetch_assoc()
+                $lineid = $row['Line_ID'];  // 此處使用正確的欄位名稱
+
+                $access_token = 'PmAFKuI7Q0plDHacuMsqdqLqUBmjM7g3jKNvyZFxlxUU60ws60gFln3DOsqg83+P6roow5o6fqL1toSBNTJO/vqdqT2XdVZXR2amIjWvPre+SAQR3Tu89T4EeER9XQ+IMkbDd6sjTW60JO0vU2HyUgdB04t89/1O/w1cDnyilFU=';
+                $to_user_id = $lineid; 
+                
+                $message = "您已下單成功 ( 單號：".$orderID." ) \n請使用選單中訂單查詢，查看訂單狀態";
+
+                $data = [
+                    'to' => $to_user_id,
+                    'messages' => [
+                        [
+                            'type' => 'text',
+                            'text' => $message,
+                        ],
+                    ],
+                ];
+
+                $ch = curl_init('https://api.line.me/v2/bot/message/push');
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+                curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                    'Content-Type: application/json',
+                    'Authorization: Bearer ' . $access_token,
+                ]);
+
+                $result = curl_exec($ch);
+
+                if ($result === false) {
+                    echo 'Curl error: ' . curl_error($ch);
+                } else {
+                    echo 'Message sent!';
+                }
+
+                curl_close($ch);
+                // 這裡您可以使用 $lineid 來進一步的處理
+            } else {
+                echo "找不到符合的資料。";
+            }
+        } else {
+            echo "SQL 查詢出現錯誤：" . $conn->error;  // 此處使用 $conn->error
+        }
+        $conn->close();
+
+
         // 重定向到订单完成页面或其他页面
         header("Location:../orders.php");
         exit();
